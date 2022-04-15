@@ -7,7 +7,14 @@ public class Bataille {
 	private Camps campHomme = new Camps();
 	private Camps campOrc = new Camps();
 	private String victoire;
-
+	private StockArmes sk; 
+	
+	public void setsk(StockArmes s) {
+		this.sk = s;
+	}
+	public StockArmes getsk() {
+		return this.sk;
+	}
 	public void ajouter(EtreVivant etreVivant) {
 		if (etreVivant instanceof Homme) {
 		campHomme.ajouterEtreVivant(etreVivant);
