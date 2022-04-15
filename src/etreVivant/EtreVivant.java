@@ -3,6 +3,9 @@ package etreVivant;
 import java.util.Random;
 
 import affrontement.Bataille;
+import equipement.Arme;
+import equipement.Epee;
+import equipement.StockArmes;
 import plateau.Case;
 
 public abstract class EtreVivant {
@@ -12,6 +15,7 @@ public abstract class EtreVivant {
 	protected int mouvement;
 	
 	protected Bataille bataille;
+	private Arme maPossession;
 	
 	protected EtreVivant(String n,int v,Case c){
 		nom = n;
@@ -29,7 +33,7 @@ public abstract class EtreVivant {
 		this.bataille.eliminer(this);
 	}
 	private void lacher() {
-		// TODO Auto-generated method stub
+		this.maPossession.lacher();
 	}
 	public void combat(EtreVivant h) {
 		while(this.getVie() > 0 && h.getVie() > 0 ) {
@@ -48,6 +52,8 @@ public abstract class EtreVivant {
 					this.getPosition().setOccupant(null);
 					this.setPosition(h.getPosition());
 					h.mourir();
+					this.obtenirArme();
+					
 				}
 			}
 			else {
@@ -56,6 +62,7 @@ public abstract class EtreVivant {
 				if(this.getVie() <= 0 ) {
 					System.out.println("L'orc "+ this.getNom()+" est mort");
 					this.mourir();
+					h.obtenirArme();
 				}
 			}
 		
@@ -63,7 +70,28 @@ public abstract class EtreVivant {
 	
 		
 	}
-	
+	public void prendre(Arme d) {
+		
+		if (this.maPossession != null) {
+			this.lacher();
+		}
+		if(d.estPris()) {
+			d.getProprietaire().lacher();
+		}
+		this.maPossession = d;
+		d.setProprietaire(this);
+		System.out.println(this.getNom() + " prend possession de "+ d.getNom());
+		}
+			
+	public void obtenirArme() {
+		
+		int min = 0;
+		int max = this.bataille.getsk().donnerNombreArme();
+
+		Random random = new Random();
+		int value = random.nextInt(max + min);
+		this.prendre(this.bataille.getsk().selectionner(value));
+	}
 	public void sedeplacer(Case c) {
 		if(this.position != null){
 		System.out.println(this.getNom()+" : je suis en "+this.getPosition().getPosition().getX() +":"+this.getPosition().getPosition().getY()+"]");
@@ -81,7 +109,7 @@ public abstract class EtreVivant {
 			distancePot = distancePot + c.getPosition().getY() - this.getPosition().getPosition().getY() ;
 		} /* distance = distance x + distance y */
 		if (distancePot > this.getMouvement()) {
-			System.out.println(this.nom + " ne peux pas acceder à cette case");
+			System.out.println(this.nom + " ne peux pas acceder Ã  cette case");
 		}
 		else {
 			if (c.getOccupant() != null) {
@@ -90,7 +118,7 @@ public abstract class EtreVivant {
 			else {
 				this.position.setOccupant(null);
 				this.position = c;
-				System.out.println("Je me déplace en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
+				System.out.println("Je me dÃ©place en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
 				c.setOccupant(this);
 			}
 		}
@@ -136,3 +164,4 @@ public abstract class EtreVivant {
 		this.bataille = b;
 	}
 }
+
