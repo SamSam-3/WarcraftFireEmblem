@@ -15,6 +15,14 @@ public class TestCombat {
 		Case f = new Case(d);
 		Orc Thrall = new Orc("Thrall",50,b);
 		Homme Jaina = new Homme("Jaina",50,e);
+		Epee epee = new Epee("L'épée des milles vérités");
+		Arc arc = new Arc(10);
+		StockArmes sk = new StockArmes();
+		p.setsk(sk);
+		sk.ajouterArme(arc);
+		sk.ajouterArme(epee);
+		
+		System.out.println("Il y a "+sk.donnerNombreArme()+"armes");
 		Thrall.rejoindBataille(p);
 		Jaina.rejoindBataille(p);
 		Thrall.sedeplacer(e);
