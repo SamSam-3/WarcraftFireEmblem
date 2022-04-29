@@ -1,14 +1,16 @@
 package etreVivant;
 import java.util.*;
 
+import affrontement.Bataille;
 import plateau.Case;
+import plateau.Coordonne;
 public class Orc extends EtreVivant{
 	
 	
 
-	public Orc(String n, int v, Case c) {
-		super(n, v, c);
-		mouvement = 2;
+	public Orc(String n, int v) {
+		super(n, v);
+		mouvement = 3;
 
 	}
 	public void attaquer(EtreVivant v) {
@@ -19,6 +21,11 @@ public class Orc extends EtreVivant{
 			this.combat(v);
 		}
 		
+	}
+public void rejointBataille(Bataille b,Coordonne e) {
+		
+		this.bataille = b;
+		b.ajouter(this, e);
 	}
 	
 
