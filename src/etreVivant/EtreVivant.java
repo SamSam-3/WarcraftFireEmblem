@@ -1,5 +1,7 @@
 package etreVivant;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import affrontement.Bataille;
@@ -7,26 +9,23 @@ import equipement.Arme;
 import equipement.Epee;
 import equipement.StockArmes;
 import plateau.Case;
+import plateau.Coordonne;
 
 public abstract class EtreVivant {
 	private String nom;
 	private int vie;
+	
 	private Case position;
 	protected int mouvement;
-	
+	protected boolean disponible;
 	protected Bataille bataille;
 	private Arme maPossession;
 	
-	protected EtreVivant(String n,int v,Case c){
+	protected EtreVivant(String n,int v){
 		nom = n;
 		vie = v;
-		position = c;
-		c.setOccupant(this);
 	}
-	public void rejointBataille(Bataille b) {
-		this.bataille = b;
-		b.ajouter(this);
-	}
+	
 	public void mourir() {
 		this.getPosition().setOccupant(null);
 		this.setPosition(null);
@@ -109,7 +108,7 @@ public abstract class EtreVivant {
 			distancePot = distancePot + c.getPosition().getY() - this.getPosition().getPosition().getY() ;
 		} /* distance = distance x + distance y */
 		if (distancePot > this.getMouvement()) {
-			System.out.println(this.nom + " ne peux pas acceder Ã  cette case");
+			System.out.println(this.nom + " ne peux pas acceder à cette case");
 		}
 		else {
 			if (c.getOccupant() != null) {
@@ -118,8 +117,9 @@ public abstract class EtreVivant {
 			else {
 				this.position.setOccupant(null);
 				this.position = c;
-				System.out.println("Je me dÃ©place en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
+				System.out.println("Je me déplace en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
 				c.setOccupant(this);
+				this.setDisponible(false);
 			}
 		}
 	}
@@ -128,12 +128,78 @@ public abstract class EtreVivant {
 		}
 		
 	}
+	public void sedeplacer(Coordonne e) {
+		List<Case> a = this.bataille.getPt();
+		for (Case q :a) {
+			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) {
+				this.sedeplacer(q);
+			}
+		}
+		
+	}
 		public void attaquer(EtreVivant e) {
 		
 	}
+		public List<Case> ActionDisponible() {
+			if (this.isDisponible()) {
+				List<Case> a = this.bataille.getPt();
+				List<Case> r = new ArrayList<>();
+				for (Case b :a) {
+					System.out.println("Test de la case ["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]");
+					int c = Math.abs(b.getPosition().getX()-this.getPosition().getPosition().getX());
+					c = c + Math.abs(b.getPosition().getY()-this.getPosition().getPosition().getY());
+					if (c < this.getMouvement() && b != this.getPosition()) {
+						System.out.println("Ajout de la case ["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]");
+						r.add(b);
+						
+					}
+				}
+				return r; 
+			}
+			else {
+				System.out.println("Aucune action n'est possible , ce n'est pas votre tour");
+				return null;
+			}
+			
+		}
+		public String AfficherDisp() {
+			String a ="";
+			List<Case> r = this.ActionDisponible();
+			if (r != null) {
+				
+			
+			for (Case b : r)
+			{
+				
+				a = a +"["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]";
+				if (b.getOccupant() != null){
+					a = a + "est occupé par : "+ b.getOccupant().getNom();
+				}
+				a = a + "\n";
+			}
+			
+			}
+			return a ;
+		}
+		
+		
+		
+		public boolean isDisponible() {
+			return disponible;
+		}
+
+		public void setDisponible(boolean disponible) {
+			this.disponible = disponible;
+		}
 	
-	
-	
+	public String description() {
+		String a = "-"+this.getPosition().getPosition().getX()+"/"+this.getPosition().getPosition().getY()+","+this.getNom()+","+this.getVie()+","+this.getMouvement();
+		if (this.maPossession != null) {
+			a = a + "\n*"+this.maPossession.getClass().getSimpleName()+","+this.maPossession.getNom();
+		}
+		return a;
+		
+	}
 
 
 	public int getVie() {
@@ -160,8 +226,5 @@ public abstract class EtreVivant {
 	public void setPosition(Case position) {
 		this.position = position;
 	}
-	public void rejoindBataille(Bataille b ) {
-		this.bataille = b;
-	}
+	
 }
-

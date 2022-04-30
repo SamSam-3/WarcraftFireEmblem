@@ -1,5 +1,6 @@
 package plateau;
 
+import affrontement.Bataille;
 import etreVivant.EtreVivant;
 
 public class Case {
@@ -9,7 +10,7 @@ public class Case {
 	private EtreVivant occupant;
 	
 	
-	public Case(Coordonne a) {
+	public Case(Coordonne a,Bataille q) {
 		position = a;
 		setOccupant(null);
 	}
