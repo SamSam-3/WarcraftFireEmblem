@@ -18,7 +18,7 @@ public class TestPartie {
 		Arc arc = new Arc("Arc de la mort qui tue");
 		StockArmes sk = new StockArmes();
 		p.setsk(sk);
-		sk.ajouterArme(arc);
+		
 		sk.ajouterArme(epee);
 	 
 	 p.initialisation();
@@ -26,17 +26,21 @@ public class TestPartie {
 	 Coordonne e = new Coordonne(3, 3);
 	 Coordonne o = new Coordonne(1,1);
 	 Coordonne s = new Coordonne(1,3);
-	 Orc Thrall = new Orc("Thrall",50);
+	 Coordonne g = new Coordonne(1,2);
+	 Orc Thrall = new Orc("Thrall",100);
 	 Thrall.rejointBataille(p, e);
 	 Thrall.setDisponible(true);
 	 Homme Jaina = new Homme("Jaina",20);
+	 Homme Jainaa = new Homme("Jainaa",200);
 	 Jaina.rejointBataille(p, o);
+	 Jainaa.rejointBataille(p, g);
 	 System.out.println(Thrall.AfficherDisp());
 	 System.out.println(Jaina.AfficherDisp());
 	 Thrall.sedeplacer(o);
 	
 	 Thrall.sedeplacer(s);
 	 Thrall.sedeplacer(o);
+	 Thrall.sedeplacer(g);
 	 p.sauvegarder();
 	 }
 

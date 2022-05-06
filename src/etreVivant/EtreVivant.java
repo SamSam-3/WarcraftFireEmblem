@@ -21,6 +21,8 @@ public abstract class EtreVivant {
 	protected Bataille bataille;
 	private Arme maPossession;
 	
+	
+
 	protected EtreVivant(String n,int v){
 		nom = n;
 		vie = v;
@@ -28,26 +30,35 @@ public abstract class EtreVivant {
 	
 	public void mourir() {
 		this.getPosition().setOccupant(null);
+		System.out.println("a" );
 		this.setPosition(null);
 		this.bataille.eliminer(this);
 	}
 	private void lacher() {
 		this.maPossession.lacher();
+		this.setMaPossession(null);
 	}
 	public void combat(EtreVivant h) {
 		while(this.getVie() > 0 && h.getVie() > 0 ) {
 			int min = 1;
 			int max = 10;
-
+			
 			Random random = new Random();
 
 			int value = random.nextInt(max + min);
 			System.out.println(value);
 			if(value < 5) {
-				h.setVie(h.getVie()-10);
-				System.out.println("L'homme "+ h.getNom()+" a "+h.getVie()+"point de vie" );
+				if (this.getMaPossession() != null) {
+					System.out.println("j'attaque avec"+this.getMaPossession().getNom() );
+					
+				this.getMaPossession().attaquer(h);
+				}
+				else {
+					h.setVie(h.getVie()-10);
+				}
+				System.out.println(""+ h.getNom()+" a "+h.getVie()+"point de vie" );
 				if(h.getVie() <= 0 ) {
-					System.out.println("L'homme "+ h.getNom()+" est mort");
+					System.out.println(""+ h.getNom()+" est mort");
 					this.getPosition().setOccupant(null);
 					this.setPosition(h.getPosition());
 					h.mourir();
@@ -56,7 +67,12 @@ public abstract class EtreVivant {
 				}
 			}
 			else {
-				this.setVie(this.getVie()-10);
+				if (h.getMaPossession() != null) {
+					h.getMaPossession().attaquer(this);
+					}
+					else {
+						this.setVie(this.getVie()-10);
+					}
 				System.out.println("L'orc "+ this.getNom()+" a "+this.getVie()+"point de vie" );
 				if(this.getVie() <= 0 ) {
 					System.out.println("L'orc "+ this.getNom()+" est mort");
@@ -75,6 +91,7 @@ public abstract class EtreVivant {
 			this.lacher();
 		}
 		if(d.estPris()) {
+			System.out.println(d.getProprietaire().getNom() + " lache "+ d.getNom());
 			d.getProprietaire().lacher();
 		}
 		this.maPossession = d;
@@ -226,5 +243,11 @@ public abstract class EtreVivant {
 	public void setPosition(Case position) {
 		this.position = position;
 	}
-	
+	public Arme getMaPossession() {
+		return maPossession;
+	}
+
+	public void setMaPossession(Arme maPossession) {
+		this.maPossession = maPossession;
+	}
 }

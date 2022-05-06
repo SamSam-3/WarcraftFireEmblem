@@ -3,7 +3,7 @@ package equipement;
 public class Epee extends Arme{
 	private String name;
 	public Epee(String n) {
-		super(80, "epee");
+		super(50, "epee");
 		name = n;
 		
 	}
