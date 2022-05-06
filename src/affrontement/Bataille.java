@@ -42,41 +42,38 @@ public class Bataille {
 	
 	public void ajouter(Homme homme,Coordonne e) {
 		String a ="";
-		for(Case q: this.getPt()){
-			a = a +"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]";
+		for(Case q: this.getPt()){ //Pour toutes les cases du plateau
+			a += "["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]"; // Affiche le X et Y
 			if (q.getOccupant() != null){
-				a = a + "est occupé par : "+ q.getOccupant().getNom();
+				a = a + "est occupï¿½ par : "+ q.getOccupant().getNom(); // Affiche si la case est occupÃ©
 			}
-			a = a + "\n";
-			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) {
+			a += "\n";
+			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) { //Si la case correspond a celle du personnage
 				 homme.setPosition(q);
-				 q.setOccupant(homme);
-				 System.out.println(q.getOccupant().getNom()+"occupe la case"+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
+				 q.setOccupant(homme);//La case lui appartient
+				 System.out.println(q.getOccupant().getNom()+" occupe la case "+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
 			 }
 		 }
-		System.out.println(a);
-		campHomme.ajouterEtreVivant(homme);
+		System.out.println(a); //Affiche la case
+		campHomme.ajouterEtreVivant(homme); // Ajoute l'homme dans son camp
 	}
-	
 
-		
-	
-	public void ajouter(Orc dragon,Coordonne e) {
+	public void ajouter(Orc orc,Coordonne e) {
 		String a ="";
-		for(Case q: this.getPt()){
-			a = a +"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]";
-			if (q.getOccupant() != null){
-				a = a + "est occupé par : "+ q.getOccupant().getNom();
+		for(Case q: this.getPt()){ //Pour toutes les cases
+			a += "["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]"; //Affiche la position de la case
+			if (q.getOccupant() != null){ // Si la case est occupÃ©
+				a += "est occupï¿½ par : "+ q.getOccupant().getNom();
 			}
-			a = a + "\n";
-			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) {
-				 dragon.setPosition(q);
-				 q.setOccupant(dragon);
-				 System.out.println(q.getOccupant().getNom()+"occupe la case"+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
+			a += "\n";
+			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) { // Si la case correspond a celle du personnage
+				 orc.setPosition(q);
+				 q.setOccupant(orc);//La case lui appartient
+				 System.out.println(q.getOccupant().getNom()+" occupe la case "+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
 			 }
 		 }
-		System.out.println(a);
-		campOrc.ajouterEtreVivant(dragon);
+		System.out.println(a); // Affiche la case
+		campOrc.ajouterEtreVivant(orc); // Ajoute l'orc dans son camp
 	}
 	
 
@@ -124,7 +121,7 @@ public class Bataille {
 	public void sauvegarder() throws IOException {
 		Path chemin = Paths.get("sauvegarde.txt");
 		if(Files.exists(chemin)){
-			System.out.println("le fichier existe déjà");
+			System.out.println("le fichier existe dï¿½jï¿½");
 			String a =""+this.getTour();
 			a = a +"\nCamps Homme : ";
 			a = a + Integer.toString(this.donnerNombreHommes())+"\n" ;
@@ -279,7 +276,7 @@ public class Bataille {
 			
 			a = a +"["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]";
 			if (b.getOccupant() != null){
-				a = a + "est occupé par : "+ b.getOccupant().getNom();
+				a = a + "est occupï¿½ par : "+ b.getOccupant().getNom();
 			}
 			a = a + "\n";
 		}
