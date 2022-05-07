@@ -20,6 +20,7 @@ import plateau.Coordonne;
 
 public class Bataille {
 	private String Tour ;
+	private EtreVivant PersoActif;
 	private Camps campHomme = new Camps();
 	private Camps campOrc = new Camps();
 	public Camps getCampHomme() {
@@ -257,8 +258,8 @@ public class Bataille {
 	public List<Case> initialisation(){
 		this.setTour("Homme");
 		List<Case> b = new ArrayList<>();
-		for(int i=0;i<4;i++) {
-			for(int j=0;j<4;j++) {
+		for(int i=1;i<10;i++) {
+			for(int j=1;j<10;j++) {
 				Coordonne c = new Coordonne(i, j);
 				Case a = new Case(c, this);
 				this.AjCase(a);
@@ -267,8 +268,38 @@ public class Bataille {
 	return pt;	
 	}
 	
+	public Case SelectionerCase(Coordonne c) {
+		Case a = null;
+		List<Case> r = this.getPt();
+		if (r != null) {
+		for (Case b : r)
+		{
+			if (b.getPosition().equals(c)) {
+				a = b ;
+			}	
+		}
+		}
+		return a;
+	}
+	public String AfficherCase(Coordonne c) {
+		String a ="";
+		Case b = this.SelectionerCase(c);
+		a = a + "["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]";
+		if (b.getOccupant() != null) {
+			a = a +" est occupé par "+ b.getOccupant().getNom();
+			a = a +"Point de vie : "+ b.getOccupant().getVie()+ "Point de mouvement : "+ b.getOccupant().getMouvement();
+			if (b.getOccupant().getMaPossession() != null)
+			{
+				a  = a +"\n il détient "+ b.getOccupant().getMaPossession().getNom();
+			}
+			this.setPersoActif(b.getOccupant());
+		}
+		return a;
+		
+	}
 	
-	public String etat() {
+	
+	public String etatDetail() {
 		String a ="";
 		List<Case> r = this.getPt();
 		if (r != null) {
@@ -287,6 +318,8 @@ public class Bataille {
 		}
 		return a ;
 	}
+	
+	
 	public void setsk(StockArmes s) {
 		this.sk = s;
 	}
@@ -307,6 +340,12 @@ public class Bataille {
 	}
 	public void setTour(String tour) {
 		Tour = tour;
+	}
+	public EtreVivant getPersoActif() {
+		return PersoActif;
+	}
+	public void setPersoActif(EtreVivant persoActif) {
+		PersoActif = persoActif;
 	}
 	
 }
