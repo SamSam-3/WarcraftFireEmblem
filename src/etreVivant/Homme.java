@@ -9,6 +9,7 @@ public class Homme extends EtreVivant{
 	public Homme(String n, int v) {
 		super(n, v);
 		mouvement = 5;
+		Initial= "  H  " ;
 	}
 
 	public void attaquer(EtreVivant v) {

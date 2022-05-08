@@ -6,7 +6,7 @@ import java.util.List;
 public class StockArmes {
 	private List<Epee> epees = new ArrayList<>();
 	private List<Arc> arcs = new ArrayList<>();
-	private List<LancePierre> lancePierres = new ArrayList<>();
+
 	private List<Arme> armes = new ArrayList<>();
 	public void ajouterArme(Epee epee) {
 		epees.add(epee);
@@ -18,10 +18,7 @@ public class StockArmes {
 		armes.add(arc);
 	}
 
-	public void ajouterArme(LancePierre lancePierre) {
-		lancePierres.add(lancePierre);
-		armes.add(lancePierre);
-	}
+	
 
 	public String afficherArmes() {
 		String chaine = "";
@@ -40,10 +37,7 @@ public class StockArmes {
 			i++;
 		}
 
-		for (int j = 0; j < lancePierres.size(); j++) {
-			chaine += "- " + i + " - un lance-pierre\n";
-			i++;
-		}
+		
 		return chaine;
 	}
 
@@ -58,10 +52,7 @@ public class StockArmes {
 		} else {
 			if (arme instanceof Arc) {
 				arcs.remove(arme);
-			} else {
-				lancePierres.remove(arme);
-			}
-
+			} 
 		}
 	}
 	

@@ -14,8 +14,8 @@ import plateau.Coordonne;
 public class TestPartie {
 	 public static void main(String[] args) throws IOException {
 	 Bataille p = new Bataille();
-	 Epee epee = new Epee("Epée des milles vérités");
-		Arc arc = new Arc("Arc de la mort qui tue");
+	 Epee epee = new Epee("Epée des milles vérités",50);
+		Arc arc = new Arc("Arc de la mort qui tue",50);
 		StockArmes sk = new StockArmes();
 		p.setsk(sk);
 		

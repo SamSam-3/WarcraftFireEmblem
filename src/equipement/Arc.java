@@ -5,8 +5,8 @@ import etreVivant.EtreVivant;
 public class Arc extends Arme {
 	private int nombreFleche;
 	private String name;
-	public Arc(String n) {
-		super(80, "Arc");
+	public Arc(String n,int d) {
+		degat = d;
 		name = n;
 		
 	}

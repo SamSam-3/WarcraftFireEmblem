@@ -14,7 +14,7 @@ import plateau.Coordonne;
 public abstract class EtreVivant {
 	private String nom;
 	private int vie;
-	
+	protected String Initial;
 	private Case position;
 	protected int mouvement;
 	protected boolean disponible;
@@ -249,5 +249,13 @@ public abstract class EtreVivant {
 
 	public void setMaPossession(Arme maPossession) {
 		this.maPossession = maPossession;
+	}
+
+	public String getInitial() {
+		return Initial;
+	}
+
+	public void setCamp(String ini) {
+		this.Initial = ini;
 	}
 }

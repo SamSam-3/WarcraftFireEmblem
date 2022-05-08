@@ -1,10 +1,13 @@
 package affrontement;
 import java.io.IOException;
+
 import java.nio.*;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystem;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.nio.file.*;
 
 import equipement.Arc;
@@ -17,7 +20,7 @@ import etreVivant.Orc;
 import etreVivant.TypeEtreVivant;
 import plateau.Case;
 import plateau.Coordonne;
-
+import java.io.*;
 public class Bataille {
 	private String Tour ;
 	private EtreVivant PersoActif;
@@ -52,17 +55,17 @@ public class Bataille {
 			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) {
 				 homme.setPosition(q);
 				 q.setOccupant(homme);
-				 System.out.println(q.getOccupant().getNom()+"occupe la case"+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
+				 System.out.println(q.getOccupant().getNom()+" occupe la case "+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
 			 }
 		 }
-		System.out.println(a);
+		
 		campHomme.ajouterEtreVivant(homme);
 	}
 	
 
 		
 	
-	public void ajouter(Orc dragon,Coordonne e) {
+	public void ajouter(Orc orc,Coordonne e) {
 		String a ="";
 		for(Case q: this.getPt()){
 			a = a +"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]";
@@ -71,13 +74,12 @@ public class Bataille {
 			}
 			a = a + "\n";
 			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) {
-				 dragon.setPosition(q);
-				 q.setOccupant(dragon);
-				 System.out.println(q.getOccupant().getNom()+"occupe la case"+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
+				 orc.setPosition(q);
+				 q.setOccupant(orc);
+				 System.out.println(q.getOccupant().getNom()+" occupe la case "+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
 			 }
 		 }
-		System.out.println(a);
-		campOrc.ajouterEtreVivant(dragon);
+		campOrc.ajouterEtreVivant(orc);
 	}
 	
 
@@ -158,7 +160,7 @@ public class Bataille {
 			this.initialisation();
 			String TourActuel = f.get(0);
 			int nombreHomme = Integer.parseInt(f.get(1).substring(f.get(1).length() - 1));
-			System.out.print("Il y a "+nombreHomme+" hommes dans ce fichier de sauvegarde");
+			System.out.println("Il y a "+nombreHomme+" hommes dans ce fichier de sauvegarde");
 			int j = 2;
 			for(int i = 0;i<nombreHomme;i++) {
 				int X = Integer.parseInt(f.get(j).substring(1,2));
@@ -169,22 +171,20 @@ public class Bataille {
 				int vie = Integer.parseInt(gg[2]);
 				Homme a = new Homme(nom, vie);
 				a.rejointBataille(this, c);
-				System.out.println("ok crea");
 				System.out.println(f.get(j+1).substring(0,1));
 				if (f.get(j+1).substring(0,1).equals(q)){
 					j++;
-					System.out.println("ok crea2");
 					String[] ga = f.get(j).split(",");
 					String nomArme = ga[1];
 					String categorie  = ga [0];
 					switch(categorie) {
 						case "epee":
-							Epee b = new Epee(nomArme);
+							Epee b = new Epee(nomArme,20*Integer.parseInt(nomArme.substring(4,5)));
 							this.getsk().ajouterArme(b);
 							a.prendre(b);
 							break;
 						case "arc":
-							Arc d = new Arc(nomArme);
+							Arc d = new Arc(nomArme,15*Integer.parseInt(nomArme.substring(3,4)));
 							this.getsk().ajouterArme(d);
 							a.prendre(d);
 							
@@ -197,7 +197,7 @@ public class Bataille {
 			j = j++;
 			System.out.println(f.get(j));
 			int nombreOrc = Integer.parseInt(f.get(j).substring(f.get(j).length() - 1));
-			System.out.print("Il y a "+nombreOrc+" orcs dans ce fichier de sauvegarde");
+			System.out.println("Il y a "+nombreOrc+" orcs dans ce fichier de sauvegarde");
 			j++;
 			for(int i = 0;i<nombreOrc;i++) {
 				int X = Integer.parseInt(f.get(j).substring(1,2));
@@ -206,26 +206,25 @@ public class Bataille {
 				String[] gg = f.get(j).split(",");
 				String nom = gg[1];
 				int vie = Integer.parseInt(gg[2]);
-				Homme a = new Homme(nom, vie);
+				Orc a = new Orc(nom, vie);
 				a.rejointBataille(this, c);
-				System.out.println("ok crea");
 				System.out.println(f.get(j+1).substring(0,1));
 				if (f.get(j+1).substring(0,1).equals(q)){
 					j++;
-					System.out.println("ok crea2");
 					String[] ga = f.get(j).split(",");
 					String nomArme = ga[1];
 					String categorie  = ga [0];
 					switch(categorie) {
 						case "epee":
-							Epee b = new Epee(nomArme);
+							Epee b = new Epee(nomArme,20*Integer.parseInt(nomArme.substring(3,4)));
 							this.getsk().ajouterArme(b);
 							a.prendre(b);
 							break;
 						case "arc":
-							Arc d = new Arc(nomArme);
+							Arc d = new Arc(nomArme,15*Integer.parseInt(nomArme.substring(2,3)));
 							this.getsk().ajouterArme(d);
 							a.prendre(d);
+							break;
 							
 					}
 					
@@ -260,11 +259,12 @@ public class Bataille {
 		List<Case> b = new ArrayList<>();
 		for(int i=1;i<10;i++) {
 			for(int j=1;j<10;j++) {
-				Coordonne c = new Coordonne(i, j);
+				Coordonne c = new Coordonne(j, i);
 				Case a = new Case(c, this);
 				this.AjCase(a);
 			}
 		}
+		this.GenererArme(10);
 	return pt;	
 	}
 	
@@ -274,7 +274,7 @@ public class Bataille {
 		if (r != null) {
 		for (Case b : r)
 		{
-			if (b.getPosition().equals(c)) {
+			if (b.getPosition().getX() == c.getX() && b.getPosition().getY() == c.getY()) {
 				a = b ;
 			}	
 		}
@@ -293,6 +293,9 @@ public class Bataille {
 				a  = a +"\n il détient "+ b.getOccupant().getMaPossession().getNom();
 			}
 			this.setPersoActif(b.getOccupant());
+		}
+		else {
+			a = a + ("\n la case est vide");
 		}
 		return a;
 		
@@ -318,7 +321,73 @@ public class Bataille {
 		}
 		return a ;
 	}
-	
+	public void remplissageInit() {
+		
+	}
+	public String afficherPlateau() {
+		
+		String a = "__________________________________________________________________________________";
+		List<Case> r = this.getPt();
+		int i = 1;
+
+		for (Case b : r)
+		{
+			if(b.getPosition().getX() == 1) {
+				a = a + "\n|" ;
+			}
+			if(b.getOccupant() != null) {
+			a = a +" ["+b.getOccupant().getInitial()+"] ";
+			}
+			else {
+				a = a +" [     ] ";
+			}
+			if(b.getPosition().getX() == 9) {
+				a = a + "|" ;
+			}
+		}
+		a = a  +"\n__________________________________________________________________________________";
+		return a;
+	}
+	public void AnnoncerTour() {
+		System.out.println("C'est au tour du camp "+this.getTour());
+	}
+	public void GenererArme(int n) {
+		StockArmes a = new StockArmes();
+		for(int i = 0;i<n;i++) {
+			int min = 1;
+			int max = 2;
+			
+			Random random = new Random();
+			int type = random.nextInt(max + min);
+			int qualite = random.nextInt(0+4);
+			
+			switch(type) {
+			case 1 : 
+				if (qualite == 0){
+					Epee epee = new Epee("Epee",20);
+					a.ajouterArme(epee);
+				}
+				else {
+					Epee epee = new Epee("Epee+"+qualite,20*qualite);
+					a.ajouterArme(epee);
+				}
+				break;
+			
+			case 2 :
+				if (qualite == 0){
+					Arc arc = new Arc("Arc",20);
+					a.ajouterArme(arc);
+				}
+				else {
+					Arc arc = new Arc("Arc+"+qualite,20*qualite);
+					a.ajouterArme(arc);
+				}
+				break;
+			
+		}
+		}
+		this.setsk(a);
+	}
 	
 	public void setsk(StockArmes s) {
 		this.sk = s;

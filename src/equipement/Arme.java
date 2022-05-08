@@ -8,9 +8,8 @@ public class Arme {
 	protected int degat;
 	protected String nature;
 	protected String nom;
-	public Arme(int d,String n){
-		this.degat = d;
-		this.nature = n;
+	public Arme(){
+		
 		this.proprietaire = null;
 	}
 	public String getNature() {
