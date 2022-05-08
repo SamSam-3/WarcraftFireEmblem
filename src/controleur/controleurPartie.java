@@ -18,6 +18,7 @@ public class controleurPartie {
 	
 	
 	public void Start() throws IOException {
+		
 		Bataille q = new Bataille();
 		Clavier c = new Clavier();
 		System.out.println("Voulez vous démarrez une nouvelle partie ?");
@@ -45,11 +46,11 @@ public class controleurPartie {
 		}
 		
 		
-		
+		q.passerletour();
 		
 	
 		while(true) {
-			q.passerletour();
+		
 		System.out.println(q.afficherPlateau());
 		q.AnnoncerTour();
 		System.out.println("Selectioner une case au format X/Y ou sauvegarder");
@@ -89,6 +90,7 @@ public class controleurPartie {
 						//q.getPersoActif().Inventaire()
 						break;
 					default :
+						
 						break;
 				}
 				}
@@ -97,9 +99,11 @@ public class controleurPartie {
 			}
 			
 		}
-		
-		
-	}}
+		if(q.isTourJouee() == true) {
+		q.passerletour();
+	}
+		}
+		}
 
 
 

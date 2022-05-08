@@ -26,6 +26,7 @@ public class Bataille {
 	private EtreVivant PersoActif;
 	private Camps campHomme = new Camps();
 	private Camps campOrc = new Camps();
+	private boolean tourJouee;
 	public Camps getCampHomme() {
 		return campHomme;
 	}
@@ -415,6 +416,18 @@ public class Bataille {
 	}
 	public void setPersoActif(EtreVivant persoActif) {
 		PersoActif = persoActif;
+	}
+	public boolean isTourJouee() {
+		return tourJouee;
+	}
+	public void setTourJouee(boolean tourJouee) {
+		this.tourJouee = tourJouee;
+	}
+	public String getVictoire() {
+		return victoire;
+	}
+	public void setVictoire(String victoire) {
+		this.victoire = victoire;
 	}
 	
 }

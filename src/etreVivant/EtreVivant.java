@@ -19,6 +19,8 @@ public abstract class EtreVivant {
 	protected int mouvement;
 	protected boolean disponible;
 	protected Bataille bataille;
+	
+
 	private Arme maPossession;
 	private int vieMax; 
 	
@@ -143,7 +145,10 @@ public abstract class EtreVivant {
 				System.out.println("Je me déplace en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
 				c.setOccupant(this);
 				this.setDisponible(false);
+				this.getBataille().setTourJouee(true);
+				
 			}
+			
 		}
 	}
 		else {
@@ -272,6 +277,12 @@ public abstract class EtreVivant {
 	public void setVieMax(int vieMax) {
 		this.vieMax = vieMax;
 	}
-	
+	public Bataille getBataille() {
+		return bataille;
+	}
+
+	public void setBataille(Bataille bataille) {
+		this.bataille = bataille;
+	}
 
 }

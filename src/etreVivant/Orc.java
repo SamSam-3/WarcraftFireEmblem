@@ -20,6 +20,7 @@ public class Orc extends EtreVivant{
 		}
 		else {
 			this.combat(v);
+			this.getBataille().setTourJouee(true);
 		}
 		
 	}

@@ -15,9 +15,11 @@ public class Homme extends EtreVivant{
 	public void attaquer(EtreVivant v) {
 		if (v instanceof Homme) {
 			System.out.println("Je ne peux attaquer quelqu'un de mon camps");
+			
 		}
 		else {
 			this.combat(v);
+			this.getBataille().setTourJouee(true);
 		}
 		
 	}
