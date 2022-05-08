@@ -20,12 +20,13 @@ public abstract class EtreVivant {
 	protected boolean disponible;
 	protected Bataille bataille;
 	private Arme maPossession;
-	
+	private int vieMax; 
 	
 
 	protected EtreVivant(String n,int v){
 		nom = n;
 		vie = v;
+		vieMax = v;
 	}
 	
 	public void mourir() {
@@ -58,11 +59,15 @@ public abstract class EtreVivant {
 				}
 				System.out.println(""+ h.getNom()+" a "+h.getVie()+"point de vie" );
 				if(h.getVie() <= 0 ) {
-					System.out.println(""+ h.getNom()+" est mort");
+					System.out.println(""+ h.getNom()+" est morte");
+					
 					this.getPosition().setOccupant(null);
 					this.setPosition(h.getPosition());
+					
 					h.mourir();
+					this.getPosition().setOccupant(this);
 					this.obtenirArme();
+					this.setVie(this.getVieMax());
 					
 				}
 			}
@@ -73,11 +78,12 @@ public abstract class EtreVivant {
 					else {
 						this.setVie(this.getVie()-10);
 					}
-				System.out.println("L'orc "+ this.getNom()+" a "+this.getVie()+"point de vie" );
+				System.out.println(" "+ this.getNom()+" a "+this.getVie()+"point de vie" );
 				if(this.getVie() <= 0 ) {
-					System.out.println("L'orc "+ this.getNom()+" est mort");
+					System.out.println(" "+ this.getNom()+" est mort");
 					this.mourir();
 					h.obtenirArme();
+					h.setVie(h.getVieMax());
 				}
 			}
 		
@@ -158,15 +164,15 @@ public abstract class EtreVivant {
 		
 	}
 		public List<Case> ActionDisponible() {
-			if (this.isDisponible()) {
+			if (this.getDisponible()) {
 				List<Case> a = this.bataille.getPt();
 				List<Case> r = new ArrayList<>();
 				for (Case b :a) {
-					System.out.println("Test de la case ["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]");
+					
 					int c = Math.abs(b.getPosition().getX()-this.getPosition().getPosition().getX());
 					c = c + Math.abs(b.getPosition().getY()-this.getPosition().getPosition().getY());
 					if (c < this.getMouvement() && b != this.getPosition()) {
-						System.out.println("Ajout de la case ["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]");
+						
 						r.add(b);
 						
 					}
@@ -201,7 +207,7 @@ public abstract class EtreVivant {
 		
 		
 		
-		public boolean isDisponible() {
+		public boolean getDisponible() {
 			return disponible;
 		}
 
@@ -258,4 +264,14 @@ public abstract class EtreVivant {
 	public void setCamp(String ini) {
 		this.Initial = ini;
 	}
+
+	public int getVieMax() {
+		return vieMax;
+	}
+
+	public void setVieMax(int vieMax) {
+		this.vieMax = vieMax;
+	}
+	
+
 }

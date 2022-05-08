@@ -49,6 +49,7 @@ public class controleurPartie {
 		
 	
 		while(true) {
+			q.passerletour();
 		System.out.println(q.afficherPlateau());
 		q.AnnoncerTour();
 		System.out.println("Selectioner une case au format X/Y ou sauvegarder");
@@ -61,25 +62,26 @@ public class controleurPartie {
 		}
 		else {
 			int x =  Integer.valueOf(Action.substring(0,1));
-			System.out.println("x : "+ x);
+			//System.out.println("x : "+ x);
 			int y =  Integer.valueOf(Action.substring(2,3));
-			System.out.println("y : "+ y);
+			//System.out.println("y : "+ y);
 			Coordonne cor = new Coordonne(x,y);
 			System.out.println(q.AfficherCase(cor));
 			if (q.SelectionerCase(cor).getOccupant() != null )
 			{
+				if(q.getPersoActif().getDisponible()) {
+					
+				
 				System.out.println("1 - Deplacer ");
 				System.out.println("2 - Inventaire ");
 				System.out.println("3 - Retour ");
 				int Aperso = c.entrerClavierInt();
 				switch(Aperso){
 					case 1 :
-						q.getPersoActif().AfficherDisp();
+						System.out.println(q.getPersoActif().AfficherDisp());
 						String cible = c.entrerClavierString();
 						int xCible =  Integer.valueOf(cible.substring(0,1));
-						System.out.println("xC : "+ xCible);
 						int yCible =  Integer.valueOf(cible.substring(2,3));
-						System.out.println("yC : "+ yCible);
 						Coordonne corCible = new Coordonne(xCible,yCible);
 						q.getPersoActif().sedeplacer(corCible);
 						break;
@@ -89,7 +91,7 @@ public class controleurPartie {
 					default :
 						break;
 				}
-					
+				}
 					
 				
 			}
