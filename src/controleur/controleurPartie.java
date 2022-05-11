@@ -101,6 +101,7 @@ public class controleurPartie {
 		}
 		if(q.isTourJouee() == true) {
 		q.passerletour();
+		q.setTourJouee(false);
 	}
 		}
 		}

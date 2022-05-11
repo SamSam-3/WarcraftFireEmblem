@@ -247,11 +247,17 @@ public class Bataille {
 			for (EtreVivant c : this.getCampOrc().getCompagnons()) {
 				c.setDisponible(true);
 			}
+			for (EtreVivant c : this.getCampHomme().getCompagnons()) {
+				c.setDisponible(false);
+			}
 		}
 		else {
 			this.setTour("Homme");
 			for (EtreVivant c : this.getCampHomme().getCompagnons()) {
 				c.setDisponible(true);
+			}
+			for (EtreVivant c : this.getCampOrc().getCompagnons()) {
+				c.setDisponible(false);
 			}
 		}
 	}
