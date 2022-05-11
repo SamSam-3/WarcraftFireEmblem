@@ -257,8 +257,8 @@ public class Bataille {
 	public List<Case> initialisation(){
 		this.setTour("Homme");
 		List<Case> b = new ArrayList<>();
-		for(int i=0;i<4;i++) {
-			for(int j=0;j<4;j++) {
+		for(int i=0;i<21;i++) {
+			for(int j=0;j<21;j++) {
 				Coordonne c = new Coordonne(i, j);
 				Case a = new Case(c, this);
 				this.AjCase(a);

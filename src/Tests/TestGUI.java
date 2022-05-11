@@ -1,5 +1,6 @@
 package Tests;
 
+import affrontement.Bataille;
 import org.w3c.dom.events.MouseEvent;
 import plateau.Actions;
 import plateau.Plateau;
@@ -10,11 +11,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class TestGUI extends JComponent implements Accessible {
 
-    public TestGUI(){
+    public TestGUI(Bataille bataille){
         JFrame f = new JFrame();
 
         JPanel panel1 = new JPanel(); // Le plateau de jeu
@@ -28,7 +31,7 @@ public class TestGUI extends JComponent implements Accessible {
         f.setLocationRelativeTo(null);
         f.setResizable(false);
 
-        panel1.add(new Plateau());
+        panel1.add(new Plateau(bataille));
         panel1.setBounds(200,200,840,840);
 
         panel2.add(new Actions());
@@ -39,8 +42,13 @@ public class TestGUI extends JComponent implements Accessible {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        TestGUI test1 = new TestGUI();
+
+        Bataille p = new Bataille();
+        Path chemin = Paths.get("sauvegarde.txt");
+        p.reprise(chemin);
+
+        TestGUI test1 = new TestGUI(p);
     }
 }
