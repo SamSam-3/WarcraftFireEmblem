@@ -146,28 +146,31 @@ public class Bataille {
 		
 	}
 	public void reprise(Path g) throws IOException {
-		if(Files.exists(g)) {
-			String q = "*";
-			List<String> f = new ArrayList<>();
-			Charset charset = Charset.forName("ISO-8859-1");
-			f = Files.readAllLines(g, charset);
-			this.initialisation();
-			String TourActuel = f.get(0);
-			int nombreHomme = Integer.parseInt(f.get(1).substring(f.get(1).length() - 1));
+		if(Files.exists(g)) { // Si le fichier de sauvegarde existe
+			List<String> f; //Liste de strings
+			Charset charset = Charset.forName("ISO-8859-1"); //Encodage
+			f = Files.readAllLines(g, charset); // La liste recupere les infos de la partie
+			this.initialisation(); // Initialise le plateau avec les données
+
+			String TourActuel = f.get(0); // Tour en cours
+			int nombreHomme = Integer.parseInt(f.get(1).substring(f.get(1).length() - 1)); // Nombre d'hommes restants
 			System.out.print("Il y a "+nombreHomme+" hommes dans ce fichier de sauvegarde");
+
 			int j = 2;
-			for(int i = 0;i<nombreHomme;i++) {
+			for(int i = 0;i<nombreHomme;i++) { // Pour le nombre d'hommes restants
+				// Récupère les coordonées X et Y
 				int X = Integer.parseInt(f.get(j).substring(1,2));
 				int Y = Integer.parseInt(f.get(j).substring(3,4));
 				Coordonne c = new Coordonne(X, Y);
-				String[] gg = f.get(j).split(",");
-				String nom = gg[1];
-				int vie = Integer.parseInt(gg[2]);
-				Homme a = new Homme(nom, vie);
-				a.rejointBataille(this, c);
-				System.out.println("ok crea");
-				System.out.println(f.get(j+1).substring(0,1));
-				if (f.get(j+1).substring(0,1).equals(q)){
+
+				String[] héros = f.get(j).split(","); //Récupère les infos du héro
+				String nom = héros[1]; // récupère son nom
+				int vie = Integer.parseInt(héros[2]); // Ses pts de vies
+				Homme a = new Homme(nom, vie); // Crée un objet Homme avec ses infos
+				a.rejointBataille(this, c); // Le fait rejoindre la bataille
+
+				System.out.println(f.get(j+1).charAt(0)+" WTF !!!");
+				if (f.get(j + 1).charAt(0) == '*'){
 					j++;
 					System.out.println("ok crea2");
 					String[] ga = f.get(j).split(",");
@@ -199,14 +202,14 @@ public class Bataille {
 				int X = Integer.parseInt(f.get(j).substring(1,2));
 				int Y = Integer.parseInt(f.get(j).substring(3,4));
 				Coordonne c = new Coordonne(X, Y);
-				String[] gg = f.get(j).split(",");
-				String nom = gg[1];
-				int vie = Integer.parseInt(gg[2]);
+				String[] héros = f.get(j).split(",");
+				String nom = héros[1];
+				int vie = Integer.parseInt(héros[2]);
 				Homme a = new Homme(nom, vie);
 				a.rejointBataille(this, c);
 				System.out.println("ok crea");
-				System.out.println(f.get(j+1).substring(0,1));
-				if (f.get(j+1).substring(0,1).equals(q)){
+				System.out.println(f.get(j+1).charAt(0));
+				if (f.get(j+1).substring(0,1).equals("*")){
 					j++;
 					System.out.println("ok crea2");
 					String[] ga = f.get(j).split(",");
