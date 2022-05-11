@@ -119,22 +119,22 @@ public class Bataille {
 	}
 
 	public void sauvegarder() throws IOException {
-		Path chemin = Paths.get("sauvegarde.txt");
-		if(Files.exists(chemin)){
+		Path chemin = Paths.get("sauvegarde.txt"); // Fichier de sauvegarde
+		if(Files.exists(chemin)){ //S'il le fichier existe
 			System.out.println("le fichier existe d�j�");
-			String a =""+this.getTour();
-			a = a +"\nCamps Homme : ";
-			a = a + Integer.toString(this.donnerNombreHommes())+"\n" ;
-			for (EtreVivant etreVivant :this.getCampHomme().getCompagnons()) {
-					a = a + etreVivant.description()+"\n";
+			String a =""+this.getTour(); // String de données du tour
+			a = a +"\nCamps Homme : "; // Données du camp Homme
+			a = a + Integer.toString(this.donnerNombreHommes())+"\n"; // Nombre d'hommes restant
+			for (EtreVivant etreVivant :this.getCampHomme().getCompagnons()) { // Pour tout les Hommes
+					a = a + etreVivant.description()+"\n"; // Recupere leurs infos (pv, nom, etc...)
 				}
-			a = a +"Camps Orc : ";
-			a = a + Integer.toString(this.donnerNombreDragons())+"\n" ;
-			for (EtreVivant etreVivant :this.getCampOrc().getCompagnons()) {
-					a = a + etreVivant.description()+"\n";
+			a = a +"Camps Orc : "; //Données du camp Orc
+			a = a + Integer.toString(this.donnerNombreDragons())+"\n" ; // Nombre d'orcs restant
+			for (EtreVivant etreVivant :this.getCampOrc().getCompagnons()) { // Pour tout les Orcs
+					a = a + etreVivant.description()+"\n"; // Recupere leurs infos (pv, nom, etc...)
 				}
-			a = a + "Fin";
-			Files.write(chemin, a.getBytes());
+			a = a + "Fin"; // Fin d la sauvegarde
+			Files.write(chemin, a.getBytes()); // Ecrit sur le support (Ficheir sauvegarde)
 
 		
 	}
