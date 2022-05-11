@@ -169,7 +169,7 @@ public class Bataille {
 				Homme a = new Homme(nom, vie); // Crée un objet Homme avec ses infos
 				a.rejointBataille(this, c); // Le fait rejoindre la bataille
 
-				System.out.println(f.get(j+1).charAt(0)+" WTF !!!");
+				System.out.println(f.get(j+1).charAt(0));
 				if (f.get(j + 1).charAt(0) == '*'){
 					j++;
 					System.out.println("ok crea2");

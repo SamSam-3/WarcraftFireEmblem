@@ -1,45 +1,43 @@
 package Tests;
 
 import org.w3c.dom.events.MouseEvent;
+import plateau.Actions;
+import plateau.Plateau;
 
+import javax.accessibility.Accessible;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class TestGUI extends Frame {
+public class TestGUI extends JComponent implements Accessible {
 
     public TestGUI(){
+        JFrame f = new JFrame();
 
-        setSize(840,840); // Block de 40*40
-        setTitle("Plateau");
-        setVisible(true);
+        JPanel panel1 = new JPanel(); // Le plateau de jeu
+        JPanel panel2 = new JPanel(); // La bar des actions
 
-        Canvas canvas = new Canvas();
-        canvas.setSize(this.getSize());
-        canvas.setVisible(true);
+        f.setSize(1280,900);
+        f.setTitle("Plateau");
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setBackground(Color.blue);
+        f.setLocationRelativeTo(null);
+        f.setResizable(false);
 
-        canvas.repaint();
+        panel1.add(new Plateau());
+        panel1.setBounds(200,200,840,840);
+
+        panel2.add(new Actions());
+        panel2.setBounds(860,860,1240,1240);
+
+        f.add(panel1, BorderLayout.WEST);
+        f.add(panel2, BorderLayout.EAST);
     }
 
-    @Override
-    public void paint(Graphics g) {
-        Image image = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("../images/plaineBord.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for(int i=0;i<21;i++){
-            for(int j=0;j<21;j++){
-                g.drawImage(image, j*40, i*40,40,40,this);
-            }
-        }
-
-    }
 
     public static void main(String[] args) {
 
