@@ -2,6 +2,8 @@ package plateau;
 
 import affrontement.Bataille;
 import etreVivant.EtreVivant;
+import etreVivant.Homme;
+import etreVivant.Orc;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -26,18 +28,41 @@ public class Plateau extends Canvas implements MouseListener{
 
         Image image = null;
 
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("../images/plaineBord.png")); //Set l'image du plateau
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        // Dessine le plateau de jeu
         for(int i=0;i<21;i++){ //21 cases en y
             for(int j=0;j<21;j++){ // 21 cases en x
-                g.drawImage(image, j*40, i*40,40,40,this); // Dessine l'image sur le canvas
+
+                try {
+                    image = ImageIO.read(getClass().getResourceAsStream("../images/plaineBord.png")); // Set l'image du plateau
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                g.drawImage(image, j*40, i*40,40,40,this); // (Re)dessine l'image sur le canvas
+
+                // Récupère la case qui correspond
+                Case selectedCase = this.bataille.getPt().get(i*NBCASE+j);
+
+                if(selectedCase.getOccupant() != null) {
+                    System.out.println(selectedCase.getOccupant() instanceof Homme);
+                    if(selectedCase.getOccupant() instanceof Homme) { // Si c'est un homme
+                        try {
+                            image = ImageIO.read(getClass().getResourceAsStream("../images/homme.png")); // Set l'image homme
+                        } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    } else {
+                        try {
+                            image = ImageIO.read(getClass().getResourceAsStream("../images/orc.png")); // Set l'image orc
+                        } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    }
+
+                    g.drawImage(image, j*40, i*40,40,40,this); // (Re)dessine l'image sur le canvas
+                }
             }
         }
-
     }
 
     @Override

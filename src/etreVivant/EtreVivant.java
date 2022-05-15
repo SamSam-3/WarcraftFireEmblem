@@ -108,7 +108,7 @@ public abstract class EtreVivant {
 			distancePot = distancePot + c.getPosition().getY() - this.getPosition().getPosition().getY() ;
 		} /* distance = distance x + distance y */
 		if (distancePot > this.getMouvement()) {
-			System.out.println(this.nom + " ne peux pas acceder à cette case");
+			System.out.println(this.nom + " ne peux pas acceder ï¿½ cette case");
 		}
 		else {
 			if (c.getOccupant() != null) {
@@ -117,7 +117,7 @@ public abstract class EtreVivant {
 			else {
 				this.position.setOccupant(null);
 				this.position = c;
-				System.out.println("Je me déplace en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
+				System.out.println("Je me dï¿½place en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
 				c.setOccupant(this);
 				this.setDisponible(false);
 			}
@@ -173,7 +173,7 @@ public abstract class EtreVivant {
 				
 				a = a +"["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]";
 				if (b.getOccupant() != null){
-					a = a + "est occupé par : "+ b.getOccupant().getNom();
+					a = a + "est occupï¿½ par : "+ b.getOccupant().getNom();
 				}
 				a = a + "\n";
 			}

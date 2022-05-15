@@ -205,7 +205,7 @@ public class Bataille {
 				String[] héros = f.get(j).split(",");
 				String nom = héros[1];
 				int vie = Integer.parseInt(héros[2]);
-				Homme a = new Homme(nom, vie);
+				Orc a = new Orc(nom, vie);
 				a.rejointBataille(this, c);
 				System.out.println("ok crea");
 				System.out.println(f.get(j+1).charAt(0));
