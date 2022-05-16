@@ -408,15 +408,15 @@ public class Bataille {
 		
 		
 	}
-	public String afficherPlateau() { 
+	public String afficherPlateau() {  // affichage textuel du plateau
 		
-		String a = "__________________________________________________________________________________";
+		String a = "__________________________________________________________________________________"; //délimitation supérieur
 		List<Case> r = this.getPt();
 		int i = 1;
 
-		for (Case b : r)
+		for (Case b : r) //affichage de chaque cellule
 		{
-			if(b.getPosition().getX() == 1) {
+			if(b.getPosition().getX() == 1) { //delimitation gauche
 				a = a + "\n|" ;
 			}
 			if(b.getOccupant() != null) {
@@ -425,27 +425,27 @@ public class Bataille {
 			else {
 				a = a +" [     ] ";
 			}
-			if(b.getPosition().getX() == 9) {
+			if(b.getPosition().getX() == 9) { //delimitation droite
 				a = a + "|" ;
 			}
 		}
-		a = a  +"\n__________________________________________________________________________________";
+		a = a  +"\n__________________________________________________________________________________"; //délimitation inférieur
 		return a;
 	}
 	public void AnnoncerTour() {
 		System.out.println("C'est au tour du camp "+this.getTour());
 	}
-	public void GenererArme(int n) {
+	public void GenererArme(int n) { //génération aléatoire d'armes de type et force différentes
 		StockArmes a = new StockArmes();
-		for(int i = 0;i<n;i++) {
+		for(int i = 0;i<n;i++) { //pour le nombre d'arme à générer
 			int min = 1;
 			int max = 2;
 			
 			Random random = new Random();
-			int type = random.nextInt(max + min);
-			int qualite = random.nextInt(0+4);
+			int type = random.nextInt(max + min); //tirage du type
+			int qualite = random.nextInt(0+4); //tyrage de la qualité
 			
-			switch(type) {
+			switch(type) { 
 			case 1 : 
 				if (qualite == 0){
 					Epee epee = new Epee("Epee",20);
@@ -472,7 +472,7 @@ public class Bataille {
 		}
 		this.setsk(a);
 	}
-	public void GenererArmure(int n) {
+	public void GenererArmure(int n) { //génération aléatoire d'armures de force différentes
 		StockArmes a = new StockArmes();
 		for(int i = 0;i<n;i++) {
 			
@@ -492,7 +492,7 @@ public class Bataille {
 		this.setArmures(a);
 	}
 	
-	public String etat() {
+	public String etat() { //renvois la description d'une case particulière
 		String a ="";
 		List<Case> r = this.getPt();
 		if (r != null) {
@@ -511,6 +511,8 @@ public class Bataille {
 		}
 		return a ;
 	}
+	
+	//getter et setters des attributs
 	public void setsk(StockArmes s) {
 		this.sk = s;
 	}
