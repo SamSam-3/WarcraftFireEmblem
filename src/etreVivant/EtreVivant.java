@@ -20,10 +20,14 @@ public abstract class EtreVivant {
 	protected boolean disponible;
 	protected Bataille bataille;
 	private Arme maPossession;
+	protected String Initial;
+	protected Armure monArmure;
+	private int vieMax; 
 	
 	protected EtreVivant(String n,int v){
 		nom = n;
 		vie = v;
+		vieMax = v;
 	}
 	
 	public void mourir() {
@@ -33,35 +37,66 @@ public abstract class EtreVivant {
 	}
 	private void lacher() {
 		this.maPossession.lacher();
+		this.setMaPossession(null);
+	}
+	public void perdreArmure() {
+		this.monArmure.lacher();
+		this.setMonArmure(null);
+	}
+	public void PrendreCoup(int dg) {
+		if (this.getMonArmure() != null){
+			System.out.print("mon armure prend pour moi");
+			this.setVie(this.getVie()-this.getMonArmure().prendreCoup(dg));
+		}
+		else {
+			this.setVie(this.getVie()-dg);
+		}
 	}
 	public void combat(EtreVivant h) {
 		while(this.getVie() > 0 && h.getVie() > 0 ) {
 			int min = 1;
 			int max = 10;
-
+			
 			Random random = new Random();
 
 			int value = random.nextInt(max + min);
 			System.out.println(value);
 			if(value < 5) {
-				h.setVie(h.getVie()-10);
-				System.out.println("L'homme "+ h.getNom()+" a "+h.getVie()+"point de vie" );
+				if (this.getMaPossession() != null) {
+					System.out.println("j'attaque avec"+this.getMaPossession().getNom() );
+					
+				this.getMaPossession().attaquer(h);
+				}
+				else {
+					h.PrendreCoup(10);
+				}
+				System.out.println(""+ h.getNom()+" a "+h.getVie()+"point de vie" );
 				if(h.getVie() <= 0 ) {
-					System.out.println("L'homme "+ h.getNom()+" est mort");
+					System.out.println(""+ h.getNom()+" est morte");
+					
 					this.getPosition().setOccupant(null);
 					this.setPosition(h.getPosition());
+					
 					h.mourir();
-					this.obtenirArme();
+					this.getPosition().setOccupant(this);
+					this.obtenir();
+					this.setVie(this.getVieMax());
 					
 				}
 			}
 			else {
-				this.setVie(this.getVie()-10);
-				System.out.println("L'orc "+ this.getNom()+" a "+this.getVie()+"point de vie" );
+				if (h.getMaPossession() != null) {
+					h.getMaPossession().attaquer(this);
+					}
+					else {
+						this.PrendreCoup(10);
+					}
+				System.out.println(" "+ this.getNom()+" a "+this.getVie()+"point de vie" );
 				if(this.getVie() <= 0 ) {
-					System.out.println("L'orc "+ this.getNom()+" est mort");
+					System.out.println(" "+ this.getNom()+" est mort");
 					this.mourir();
-					h.obtenirArme();
+					h.obtenir();
+					h.setVie(h.getVieMax());
 				}
 			}
 		
@@ -82,6 +117,47 @@ public abstract class EtreVivant {
 		System.out.println(this.getNom() + " prend possession de "+ d.getNom());
 		}
 			
+	public void prendre(Arme d) {
+		
+		if (this.maPossession != null) {
+			this.lacher();
+		}
+		if(d.estPris()) {
+			System.out.println(d.getProprietaire().getNom() + " lache "+ d.getNom());
+			d.getProprietaire().lacher();
+		}
+		this.maPossession = d;
+		d.setProprietaire(this);
+		System.out.println(this.getNom() + " prend possession de "+ d.getNom());
+		}
+	
+public void prendre(Armure d) {
+		
+		if (this.monArmure != null) {
+			this.perdreArmure();
+		}
+		if(d.getProprietaire() != null) {
+			System.out.println(d.getProprietaire().getNom() + " lache "+ d.getNom());
+			d.getProprietaire().lacher();
+		}
+		this.monArmure = d;
+		d.setProprietaire(this);
+		System.out.println(this.getNom() + " prend possession de "+ d.getNom());
+		}
+
+public void obtenir() {
+	int min = 0;
+	int max = 2;
+	Random random = new Random();
+	int value = random.nextInt(max + min);
+	if (value == 1) {
+		this.obtenirArmure();
+	}
+	else {
+		this.obtenirArme();
+	}
+	
+}
 	public void obtenirArme() {
 		
 		int min = 0;
@@ -90,6 +166,15 @@ public abstract class EtreVivant {
 		Random random = new Random();
 		int value = random.nextInt(max + min);
 		this.prendre(this.bataille.getsk().selectionner(value));
+	}
+public void obtenirArmure() {
+		
+		int min = 0;
+		int max = this.bataille.getArmures().donnerNombreArmure();
+
+		Random random = new Random();
+		int value = random.nextInt(max + min);
+		this.prendre(this.bataille.getArmures().selectionnerA(value));
 	}
 	public void sedeplacer(Case c) {
 		if(this.position != null){
@@ -184,7 +269,7 @@ public abstract class EtreVivant {
 		
 		
 		
-		public boolean isDisponible() {
+		public boolean getDisponible() {
 			return disponible;
 		}
 
@@ -200,9 +285,18 @@ public abstract class EtreVivant {
 		return a;
 		
 	}
-
-
-	public int getVie() {
+	public String description() {
+		String a = "-"+this.getPosition().getPosition().getX()+"/"+this.getPosition().getPosition().getY()+","+this.getNom()+","+this.getVie()+","+this.getMouvement();
+		if (this.maPossession != null) {
+			a = a + "\n*"+this.maPossession.getClass().getSimpleName()+","+this.maPossession.getNom();
+		}
+		if (this.monArmure != null) {
+			a = a + "\n+"+this.monArmure.getClass().getSimpleName()+","+this.monArmure.getPA();
+		}
+		return a;
+		
+	}
+public int getVie() {
 		return vie;
 	}
 	public void setVie(int vie) {
@@ -226,5 +320,51 @@ public abstract class EtreVivant {
 	public void setPosition(Case position) {
 		this.position = position;
 	}
+	public Arme getMaPossession() {
+		return maPossession;
+	}
+
+	public void setMaPossession(Arme maPossession) {
+		this.maPossession = maPossession;
+	}
+
+	public String getInitial() {
+		return Initial;
+	}
+	public void setInitial(String g) {
+		this.Initial = g;
+	}
+
+	public void setCamp(String ini) {
+		this.Initial = ini;
+	}
+
+	public Armure getMonArmure() {
+		return monArmure;
+	}
+
+	public void setMonArmure(Armure monArmure) {
+		this.monArmure = monArmure;
+	}
+
+	public int getVieMax() {
+		return vieMax;
+	}
+
+	public void setVieMax(int vieMax) {
+		this.vieMax = vieMax;
+	}
+	public Bataille getBataille() {
+		return bataille;
+	}
+
+	public void setBataille(Bataille bataille) {
+		this.bataille = bataille;
+	}
+
+	
+
+}
+
 	
 }
