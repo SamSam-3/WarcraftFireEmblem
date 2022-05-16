@@ -6,6 +6,7 @@ import java.util.List;
 public class StockArmes {
 	private List<Epee> epees = new ArrayList<>();
 	private List<Arc> arcs = new ArrayList<>();
+	private List<Armure> armures = new ArrayList<>();
 	private List<LancePierre> lancePierres = new ArrayList<>();
 	private List<Arme> armes = new ArrayList<>();
 	public void ajouterArme(Epee epee) {
@@ -22,20 +23,23 @@ public class StockArmes {
 		lancePierres.add(lancePierre);
 		armes.add(lancePierre);
 	}
-
+	public void ajouterArmure(Armure d) {
+		armures.add(d);
+		
+	}
 	public String afficherArmes() {
 		String chaine = "";
 		int i = 1;
 		for (Epee epee : epees) {
-			chaine += "- " + i + " - l'épée " + epee.getNom() + "\n";
+			chaine += "- " + i + " - l'Ã©pÃ©e " + epee.getNom() + "\n";
 			i++;
 		}
 		for (Arc arc : arcs) {
 			chaine += "- " + i + " - un arc avec " + arc.nombreFleche();
 			if (arc.nombreFleche() > 1) {
-				chaine += " flèches\n";
+				chaine += " flÃ¨ches\n";
 			} else {
-				chaine += " flèche\n";
+				chaine += " flÃ¨che\n";
 			}
 			i++;
 		}
@@ -51,6 +55,11 @@ public class StockArmes {
 		return armes.get(numero);
 		
 	}
+	public Armure selectionnerA(int numero) {
+		return armures.get(numero);
+		
+	}
+
 
 	public void supprimerArme(Arme arme) {
 		if (arme instanceof Epee) {
@@ -67,5 +76,9 @@ public class StockArmes {
 	
 	public int donnerNombreArme() {
 		return armes.size();
+	}
+	public int donnerNombreArmure() {
+		// TODO Auto-generated method stub
+		return armures.size();
 	}
 }
