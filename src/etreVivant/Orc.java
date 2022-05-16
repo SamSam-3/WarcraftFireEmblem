@@ -11,6 +11,7 @@ public class Orc extends EtreVivant{
 	public Orc(String n, int v) {
 		super(n, v);
 		mouvement = 3;
+		Initial  ="  O  ";
 
 	}
 	public void attaquer(EtreVivant v) {
@@ -19,6 +20,7 @@ public class Orc extends EtreVivant{
 		}
 		else {
 			this.combat(v);
+			this.getBataille().setTourJouee(true);
 		}
 		
 	}

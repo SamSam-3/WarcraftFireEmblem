@@ -1,14 +1,18 @@
 package affrontement;
 import java.io.IOException;
+
 import java.nio.*;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystem;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.nio.file.*;
 
 import equipement.Arc;
 import equipement.Arme;
+import equipement.Armure;
 import equipement.Epee;
 import equipement.StockArmes;
 import etreVivant.EtreVivant;
@@ -17,11 +21,13 @@ import etreVivant.Orc;
 import etreVivant.TypeEtreVivant;
 import plateau.Case;
 import plateau.Coordonne;
-
+import java.io.*;
 public class Bataille {
 	private String Tour ;
+	private EtreVivant PersoActif;
 	private Camps campHomme = new Camps();
 	private Camps campOrc = new Camps();
+	private boolean tourJouee;
 	public Camps getCampHomme() {
 		return campHomme;
 	}
@@ -38,42 +44,44 @@ public class Bataille {
 	private String victoire;
 	private StockArmes sk; 
 	private List<Case> pt = new ArrayList<>();
-	
+	private StockArmes Armures;
 	
 	public void ajouter(Homme homme,Coordonne e) {
 		String a ="";
-		for(Case q: this.getPt()){ //Pour toutes les cases du plateau
-			a += "["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]"; // Affiche le X et Y
+		for(Case q: this.getPt()){
+			a = a +"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]";
 			if (q.getOccupant() != null){
-				a = a + "est occup� par : "+ q.getOccupant().getNom(); // Affiche si la case est occupé
+				a = a + "est occup� par : "+ q.getOccupant().getNom();
 			}
-			a += "\n";
-			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) { //Si la case correspond a celle du personnage
+			a = a + "\n";
+			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) {
 				 homme.setPosition(q);
-				 q.setOccupant(homme);//La case lui appartient
+				 q.setOccupant(homme);
 				 System.out.println(q.getOccupant().getNom()+" occupe la case "+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
 			 }
 		 }
-		System.out.println(a); //Affiche la case
-		campHomme.ajouterEtreVivant(homme); // Ajoute l'homme dans son camp
+		
+		campHomme.ajouterEtreVivant(homme);
 	}
+	
 
+		
+	
 	public void ajouter(Orc orc,Coordonne e) {
 		String a ="";
-		for(Case q: this.getPt()){ //Pour toutes les cases
-			a += "["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]"; //Affiche la position de la case
-			if (q.getOccupant() != null){ // Si la case est occupé
-				a += "est occup� par : "+ q.getOccupant().getNom();
+		for(Case q: this.getPt()){
+			a = a +"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]";
+			if (q.getOccupant() != null){
+				a = a + "est occup� par : "+ q.getOccupant().getNom();
 			}
-			a += "\n";
-			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) { // Si la case correspond a celle du personnage
+			a = a + "\n";
+			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) {
 				 orc.setPosition(q);
-				 q.setOccupant(orc);//La case lui appartient
+				 q.setOccupant(orc);
 				 System.out.println(q.getOccupant().getNom()+" occupe la case "+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
 			 }
 		 }
-		System.out.println(a); // Affiche la case
-		campOrc.ajouterEtreVivant(orc); // Ajoute l'orc dans son camp
+		campOrc.ajouterEtreVivant(orc);
 	}
 	
 
@@ -81,14 +89,14 @@ public class Bataille {
 		if (etreVivant instanceof Homme) {
 			campHomme.supprimerCompagnon(etreVivant);
 			if (campOrc.nbCompagnon() > 0 && campHomme.nbCompagnon() == 0) {
-				this.victoire = "Homme";
+				this.victoire = "Hommes";
 		}
 		}
 			
 			else if(etreVivant instanceof Orc) {
 				campOrc.supprimerCompagnon(etreVivant);
 				if (campOrc.nbCompagnon() == 0 && campHomme.nbCompagnon() > 0) {
-					this.victoire = "Orc";
+					this.victoire = "Orcs";
 			}
 			}
 	}
@@ -119,22 +127,22 @@ public class Bataille {
 	}
 
 	public void sauvegarder() throws IOException {
-		Path chemin = Paths.get("sauvegarde.txt"); // Fichier de sauvegarde
-		if(Files.exists(chemin)){ //S'il le fichier existe
-			System.out.println("le fichier existe d�j�");
-			String a =""+this.getTour(); // String de données du tour
-			a = a +"\nCamps Homme : "; // Données du camp Homme
-			a = a + Integer.toString(this.donnerNombreHommes())+"\n"; // Nombre d'hommes restant
-			for (EtreVivant etreVivant :this.getCampHomme().getCompagnons()) { // Pour tout les Hommes
-					a = a + etreVivant.description()+"\n"; // Recupere leurs infos (pv, nom, etc...)
+		Path chemin = Paths.get("sauvegarde.txt");
+		if(Files.exists(chemin)){
+			System.out.println("le fichier existe d�j�");
+			String a =""+this.getTour();
+			a = a +"\nCamps Homme : ";
+			a = a + Integer.toString(this.donnerNombreHommes())+"\n" ;
+			for (EtreVivant etreVivant :this.getCampHomme().getCompagnons()) {
+					a = a + etreVivant.description()+"\n";
 				}
-			a = a +"Camps Orc : "; //Données du camp Orc
-			a = a + Integer.toString(this.donnerNombreDragons())+"\n" ; // Nombre d'orcs restant
-			for (EtreVivant etreVivant :this.getCampOrc().getCompagnons()) { // Pour tout les Orcs
-					a = a + etreVivant.description()+"\n"; // Recupere leurs infos (pv, nom, etc...)
+			a = a +"Camps Orc : ";
+			a = a + Integer.toString(this.donnerNombreDragons())+"\n" ;
+			for (EtreVivant etreVivant :this.getCampOrc().getCompagnons()) {
+					a = a + etreVivant.description()+"\n";
 				}
-			a = a + "Fin"; // Fin d la sauvegarde
-			Files.write(chemin, a.getBytes()); // Ecrit sur le support (Ficheir sauvegarde)
+			a = a + "Fin";
+			Files.write(chemin, a.getBytes());
 
 		
 	}
@@ -146,48 +154,54 @@ public class Bataille {
 		
 	}
 	public void reprise(Path g) throws IOException {
-		if(Files.exists(g)) { // Si le fichier de sauvegarde existe
-			List<String> f; //Liste de strings
-			Charset charset = Charset.forName("ISO-8859-1"); //Encodage
-			f = Files.readAllLines(g, charset); // La liste recupere les infos de la partie
-			this.initialisation(); // Initialise le plateau avec les données
-
-			String TourActuel = f.get(0); // Tour en cours
-			int nombreHomme = Integer.parseInt(f.get(1).substring(f.get(1).length() - 1)); // Nombre d'hommes restants
-			System.out.print("Il y a "+nombreHomme+" hommes dans ce fichier de sauvegarde");
-
+		if(Files.exists(g)) {
+			String q = "*";
+			String p = "+";
+			List<String> f = new ArrayList<>();
+			Charset charset = Charset.forName("ISO-8859-1");
+			f = Files.readAllLines(g, charset);
+			this.initialisation();
+			String TourActuel = f.get(0);
+			int nombreHomme = Integer.parseInt(f.get(1).substring(f.get(1).length() - 1));
+			System.out.println("Il y a "+nombreHomme+" hommes dans ce fichier de sauvegarde");
 			int j = 2;
-			for(int i = 0;i<nombreHomme;i++) { // Pour le nombre d'hommes restants
-				// Récupère les coordonées X et Y
+			for(int i = 0;i<nombreHomme;i++) {
 				int X = Integer.parseInt(f.get(j).substring(1,2));
 				int Y = Integer.parseInt(f.get(j).substring(3,4));
 				Coordonne c = new Coordonne(X, Y);
-
-				String[] héros = f.get(j).split(","); //Récupère les infos du héro
-				String nom = héros[1]; // récupère son nom
-				int vie = Integer.parseInt(héros[2]); // Ses pts de vies
-				Homme a = new Homme(nom, vie); // Crée un objet Homme avec ses infos
-				a.rejointBataille(this, c); // Le fait rejoindre la bataille
-
-				System.out.println(f.get(j+1).charAt(0));
-				if (f.get(j + 1).charAt(0) == '*'){
+				String[] gg = f.get(j).split(",");
+				String nom = gg[1];
+				int vie = Integer.parseInt(gg[2]);
+				Homme a = new Homme(nom, vie);
+				a.rejointBataille(this, c);
+				System.out.println(f.get(j+1).substring(0,1));
+				if (f.get(j+1).substring(0,1).equals(q)){
 					j++;
-					System.out.println("ok crea2");
 					String[] ga = f.get(j).split(",");
 					String nomArme = ga[1];
 					String categorie  = ga [0];
 					switch(categorie) {
 						case "epee":
-							Epee b = new Epee(nomArme);
+							Epee b = new Epee(nomArme,20*Integer.parseInt(nomArme.substring(4,5)));
 							this.getsk().ajouterArme(b);
 							a.prendre(b);
 							break;
 						case "arc":
-							Arc d = new Arc(nomArme);
+							Arc d = new Arc(nomArme,15*Integer.parseInt(nomArme.substring(3,4)));
 							this.getsk().ajouterArme(d);
 							a.prendre(d);
 							
 					}
+					
+				}
+				if (f.get(j+1).substring(0,1).equals(p)){
+					j++;
+					String[] ga = f.get(j).split(",");
+					String nomArmure = ga[0].substring(1);
+					int pa = Integer.parseInt(ga[1]);
+					Armure arm = new Armure(nomArmure, pa);
+					this.getArmures().ajouterArmure(arm);
+					a.prendre(arm);
 					
 				}
 				j++;
@@ -196,35 +210,34 @@ public class Bataille {
 			j = j++;
 			System.out.println(f.get(j));
 			int nombreOrc = Integer.parseInt(f.get(j).substring(f.get(j).length() - 1));
-			System.out.print("Il y a "+nombreOrc+" orcs dans ce fichier de sauvegarde");
+			System.out.println("Il y a "+nombreOrc+" orcs dans ce fichier de sauvegarde");
 			j++;
 			for(int i = 0;i<nombreOrc;i++) {
 				int X = Integer.parseInt(f.get(j).substring(1,2));
 				int Y = Integer.parseInt(f.get(j).substring(3,4));
 				Coordonne c = new Coordonne(X, Y);
-				String[] héros = f.get(j).split(",");
-				String nom = héros[1];
-				int vie = Integer.parseInt(héros[2]);
+				String[] gg = f.get(j).split(",");
+				String nom = gg[1];
+				int vie = Integer.parseInt(gg[2]);
 				Orc a = new Orc(nom, vie);
 				a.rejointBataille(this, c);
-				System.out.println("ok crea");
-				System.out.println(f.get(j+1).charAt(0));
-				if (f.get(j+1).substring(0,1).equals("*")){
+				System.out.println(f.get(j+1).substring(0,1));
+				if (f.get(j+1).substring(0,1).equals(q)){
 					j++;
-					System.out.println("ok crea2");
 					String[] ga = f.get(j).split(",");
 					String nomArme = ga[1];
 					String categorie  = ga [0];
 					switch(categorie) {
 						case "epee":
-							Epee b = new Epee(nomArme);
+							Epee b = new Epee(nomArme,20*Integer.parseInt(nomArme.substring(3,4)));
 							this.getsk().ajouterArme(b);
 							a.prendre(b);
 							break;
 						case "arc":
-							Arc d = new Arc(nomArme);
+							Arc d = new Arc(nomArme,15*Integer.parseInt(nomArme.substring(2,3)));
 							this.getsk().ajouterArme(d);
 							a.prendre(d);
+							break;
 							
 					}
 					
@@ -246,29 +259,70 @@ public class Bataille {
 			for (EtreVivant c : this.getCampOrc().getCompagnons()) {
 				c.setDisponible(true);
 			}
+			for (EtreVivant c : this.getCampHomme().getCompagnons()) {
+				c.setDisponible(false);
+			}
 		}
 		else {
 			this.setTour("Homme");
 			for (EtreVivant c : this.getCampHomme().getCompagnons()) {
 				c.setDisponible(true);
 			}
+			for (EtreVivant c : this.getCampOrc().getCompagnons()) {
+				c.setDisponible(false);
+			}
 		}
 	}
 	public List<Case> initialisation(){
 		this.setTour("Homme");
 		List<Case> b = new ArrayList<>();
-		for(int i=0;i<21;i++) {
-			for(int j=0;j<21;j++) {
-				Coordonne c = new Coordonne(i, j);
+		for(int i=1;i<10;i++) {
+			for(int j=1;j<10;j++) {
+				Coordonne c = new Coordonne(j, i);
 				Case a = new Case(c, this);
 				this.AjCase(a);
 			}
 		}
+		this.GenererArme(10);
+		this.GenererArmure(10);
 	return pt;	
 	}
 	
+	public Case SelectionerCase(Coordonne c) {
+		Case a = null;
+		List<Case> r = this.getPt();
+		if (r != null) {
+		for (Case b : r)
+		{
+			if (b.getPosition().getX() == c.getX() && b.getPosition().getY() == c.getY()) {
+				a = b ;
+			}	
+		}
+		}
+		return a;
+	}
+	public String AfficherCase(Coordonne c) {
+		String a ="";
+		Case b = this.SelectionerCase(c);
+		a = a + "["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]";
+		if (b.getOccupant() != null) {
+			a = a +" est occup� par "+ b.getOccupant().getNom();
+			a = a +"Point de vie : "+ b.getOccupant().getVie()+ "Point de mouvement : "+ b.getOccupant().getMouvement();
+			if (b.getOccupant().getMaPossession() != null)
+			{
+				a  = a +"\n il d�tient "+ b.getOccupant().getMaPossession().getNom();
+			}
+			this.setPersoActif(b.getOccupant());
+		}
+		else {
+			a = a + ("\n la case est vide");
+		}
+		return a;
+		
+	}
 	
-	public String etat() {
+	
+	public String etatDetail() {
 		String a ="";
 		List<Case> r = this.getPt();
 		if (r != null) {
@@ -279,7 +333,7 @@ public class Bataille {
 			
 			a = a +"["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]";
 			if (b.getOccupant() != null){
-				a = a + "est occup� par : "+ b.getOccupant().getNom();
+				a = a + "est occup� par : "+ b.getOccupant().getNom();
 			}
 			a = a + "\n";
 		}
@@ -287,6 +341,171 @@ public class Bataille {
 		}
 		return a ;
 	}
+	public void remplissageInit() {
+		Orc PionO1 = new Orc("Orc 1", 100);
+		Orc PionO2 = new Orc("Orc 2", 100);
+		Orc PionO3 = new Orc("Orc 3", 100);
+		Orc PionO4 = new Orc("Orc 4", 100);
+		Orc PionO5 = new Orc("Orc 5", 100);
+		Orc PionO6 = new Orc("Orc 6", 100);
+		Orc PionO7 = new Orc("Orc 7", 100);
+		Orc PionO8 = new Orc("Orc 8", 100);
+		Orc PionO9 = new Orc("Orc 9", 100);
+		Coordonne o1 = new Coordonne(2,1);
+		Coordonne o2 = new Coordonne(2,2);
+		Coordonne o3 = new Coordonne(2,3);
+		Coordonne o4 = new Coordonne(2,4);
+		Coordonne o5 = new Coordonne(2,5);
+		Coordonne o6 = new Coordonne(2,6);
+		Coordonne o7 = new Coordonne(2,7);
+		Coordonne o8 = new Coordonne(2,8);
+		Coordonne o9 = new Coordonne(2,9);
+		PionO1.rejointBataille(this, o1);
+		PionO2.rejointBataille(this, o2);
+		PionO3.rejointBataille(this, o3);
+		PionO4.rejointBataille(this, o4);
+		PionO5.rejointBataille(this, o5);
+		PionO6.rejointBataille(this, o6);
+		PionO7.rejointBataille(this, o7);
+		PionO8.rejointBataille(this, o8);
+		PionO9.rejointBataille(this, o9);
+		
+		Homme PionH1 = new Homme("Homme 1", 100);
+		Homme PionH2 = new Homme("Homme 2", 100);
+		Homme PionH3 = new Homme("Homme 3", 100);
+		Homme PionH4 = new Homme("Homme 4", 100);
+		Homme PionH5 = new Homme("Homme 5", 100);
+		Homme PionH6 = new Homme("Homme 6", 100);
+		Homme PionH7 = new Homme("Homme 7", 100);
+		Homme PionH8 = new Homme("Homme 8", 100);
+		Homme PionH9 = new Homme("Homme 9", 100);
+		Coordonne h1 = new Coordonne(8,1);
+		Coordonne h2 = new Coordonne(8,2);
+		Coordonne h3 = new Coordonne(8,3);
+		Coordonne h4 = new Coordonne(8,4);
+		Coordonne h5 = new Coordonne(8,5);
+		Coordonne h6 = new Coordonne(8,6);
+		Coordonne h7 = new Coordonne(8,7);
+		Coordonne h8 = new Coordonne(8,8);
+		Coordonne h9 = new Coordonne(8,9);
+		PionH1.rejointBataille(this, h1);
+		PionH2.rejointBataille(this, h2);
+		PionH3.rejointBataille(this, h3);
+		PionH4.rejointBataille(this, h4);
+		PionH5.rejointBataille(this, h5);
+		PionH6.rejointBataille(this, h6);
+		PionH7.rejointBataille(this, h7);
+		PionH8.rejointBataille(this, h8);
+		PionH9.rejointBataille(this, h9);		
+		
+		Homme ChH1 = new Homme("Chevalier Homme 1", 80);
+		ChH1.setInitial(" ChH ");
+		ChH1.setMouvement(5);
+		Coordonne hch1 = new Coordonne(9,8);
+		ChH1.rejointBataille(this, hch1);
+		Homme ChH2 = new Homme("Chevalier Homme 2", 80);
+		ChH2.setInitial(" ChH ");
+		ChH2.setMouvement(5);
+		Coordonne hch2 = new Coordonne(9,2);
+		ChH2.rejointBataille(this, hch2);
+		
+		Homme ChO1 = new Homme("Chevalier Orc 1", 80);
+		ChO1.setInitial(" ChO ");
+		ChO1.setMouvement(5);
+		Coordonne hco1 = new Coordonne(1,8);
+		ChO1.rejointBataille(this, hco1);
+		Homme ChO2 = new Homme("Chevalier Orc 2", 80);
+		ChO2.setInitial(" ChO ");
+		ChO2.setMouvement(5);
+		Coordonne hco2 = new Coordonne(1,2);
+		ChO2.rejointBataille(this, hco2);
+		
+		
+	}
+	public String afficherPlateau() {
+		
+		String a = "__________________________________________________________________________________";
+		List<Case> r = this.getPt();
+		int i = 1;
+
+		for (Case b : r)
+		{
+			if(b.getPosition().getX() == 1) {
+				a = a + "\n|" ;
+			}
+			if(b.getOccupant() != null) {
+			a = a +" ["+b.getOccupant().getInitial()+"] ";
+			}
+			else {
+				a = a +" [     ] ";
+			}
+			if(b.getPosition().getX() == 9) {
+				a = a + "|" ;
+			}
+		}
+		a = a  +"\n__________________________________________________________________________________";
+		return a;
+	}
+	public void AnnoncerTour() {
+		System.out.println("C'est au tour du camp "+this.getTour());
+	}
+	public void GenererArme(int n) {
+		StockArmes a = new StockArmes();
+		for(int i = 0;i<n;i++) {
+			int min = 1;
+			int max = 2;
+			
+			Random random = new Random();
+			int type = random.nextInt(max + min);
+			int qualite = random.nextInt(0+4);
+			
+			switch(type) {
+			case 1 : 
+				if (qualite == 0){
+					Epee epee = new Epee("Epee",20);
+					a.ajouterArme(epee);
+				}
+				else {
+					Epee epee = new Epee("Epee+"+qualite,20*qualite);
+					a.ajouterArme(epee);
+				}
+				break;
+			
+			case 2 :
+				if (qualite == 0){
+					Arc arc = new Arc("Arc",20);
+					a.ajouterArme(arc);
+				}
+				else {
+					Arc arc = new Arc("Arc+"+qualite,20*qualite);
+					a.ajouterArme(arc);
+				}
+				break;
+			
+		}
+		}
+		this.setsk(a);
+	}
+	public void GenererArmure(int n) {
+		StockArmes a = new StockArmes();
+		for(int i = 0;i<n;i++) {
+			
+			
+			Random random = new Random();
+			
+			int qualite = random.nextInt(0+4);
+			if (qualite == 0){
+				Armure armure = new Armure("Armure",20);
+				a.ajouterArmure(armure);
+			}
+			else {
+				Armure armure = new Armure("Armure+"+qualite,20*qualite);
+				a.ajouterArmure(armure);
+			}
+		}
+		this.setArmures(a);
+	}
+	
 	public void setsk(StockArmes s) {
 		this.sk = s;
 	}
@@ -307,6 +526,30 @@ public class Bataille {
 	}
 	public void setTour(String tour) {
 		Tour = tour;
+	}
+	public EtreVivant getPersoActif() {
+		return PersoActif;
+	}
+	public void setPersoActif(EtreVivant persoActif) {
+		PersoActif = persoActif;
+	}
+	public boolean isTourJouee() {
+		return tourJouee;
+	}
+	public void setTourJouee(boolean tourJouee) {
+		this.tourJouee = tourJouee;
+	}
+	public String getVictoire() {
+		return victoire;
+	}
+	public void setVictoire(String victoire) {
+		this.victoire = victoire;
+	}
+	public StockArmes getArmures() {
+		return Armures;
+	}
+	public void setArmures(StockArmes armures) {
+		Armures = armures;
 	}
 	
 }

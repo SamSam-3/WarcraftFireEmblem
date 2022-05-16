@@ -8,9 +8,8 @@ public class Arme {
 	protected int degat;
 	protected String nature;
 	protected String nom;
-	public Arme(int d,String n){
-		this.degat = d;
-		this.nature = n;
+	public Arme(){
+		
 		this.proprietaire = null;
 	}
 	public String getNature() {
@@ -40,14 +39,13 @@ public class Arme {
 		this.proprietaire = null;
 	}
 	public void attaquer(EtreVivant d) {
-		d.setVie(d.getVie()-this.degat);
+		d.PrendreCoup(this.degat);
 		if (d.getVie() < 0){
 			d.setVie(0);
 		}
 		String a = d.getNom() + "subit une attaque violente";
 		if (d.getVie() == 0) {
 			a = a + " trop violente pour survivre"; 
-			d.mourir();
 		}
 		else {
 			a = a + " mais il parvient a se relever"; 
