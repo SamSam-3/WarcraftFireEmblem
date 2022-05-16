@@ -8,7 +8,8 @@ public class Homme extends EtreVivant{
 
 	public Homme(String n, int v) {
 		super(n, v);
-		mouvement = 5;
+		mouvement = 3;
+		Initial= "  H  " ;
 	}
 
 	public void attaquer(EtreVivant v) {
@@ -17,6 +18,7 @@ public class Homme extends EtreVivant{
 		}
 		else {
 			this.combat(v);
+			this.getBataille().setTourJouee(true);
 		}
 		
 	}
