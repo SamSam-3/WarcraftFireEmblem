@@ -8,19 +8,19 @@ public class Orc extends EtreVivant{
 	
 	
 
-	public Orc(String n, int v) {
+	public Orc(String n, int v) { //constructeur
 		super(n, v);
 		mouvement = 3;
 		Initial  ="  O  ";
 
 	}
-	public void attaquer(EtreVivant v) {
-		if (v instanceof Orc) {
+	public void attaquer(EtreVivant v) { //attaque
+		if (v instanceof Orc) { //si le défensseur est du même camp , il ne se passe rien
 			System.out.println("Je ne peux attaquer quelqu'un de mon camps");
 		}
-		else {
-			this.combat(v);
-			this.getBataille().setTourJouee(true);
+		else {//au sinon
+			this.combat(v); //attaque de l'occupant 
+			this.getBataille().setTourJouee(true); //tour jouée
 		}
 		
 	}
