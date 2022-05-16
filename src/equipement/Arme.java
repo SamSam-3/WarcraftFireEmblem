@@ -8,11 +8,12 @@ public class Arme {
 	protected int degat;
 	protected String nature;
 	protected String nom;
-	public Arme(){
+	public Arme(){ //constructeur , pas utilisé
 		
 		this.proprietaire = null;
 	}
-	public String getNature() {
+	// getters et setters
+	public String getNature() { 
 		return nature;
 	}
 	public EtreVivant getProprietaire() {
@@ -38,14 +39,15 @@ public class Arme {
 	public void lacher() {
 		this.proprietaire = null;
 	}
-	public void attaquer(EtreVivant d) {
-		d.PrendreCoup(this.degat);
+	public void attaquer(EtreVivant d) {  
+		d.PrendreCoup(this.degat); //appel fonction pour le calcul des dégats pris avec l'armure
 		if (d.getVie() < 0){
 			d.setVie(0);
 		}
 		String a = d.getNom() + "subit une attaque violente";
 		if (d.getVie() == 0) {
 			a = a + " trop violente pour survivre"; 
+			d.mourir(); //mort de l'adversaire si les pv tombe à 0
 		}
 		else {
 			a = a + " mais il parvient a se relever"; 
