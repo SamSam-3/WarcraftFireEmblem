@@ -202,29 +202,29 @@ public void obtenirArmure() { //obtention d'une armure
 		}
 		
 	}
-	public void sedeplacer(Coordonne e) {
-		List<Case> a = this.bataille.getPt();
+	public void sedeplacer(Coordonne e) { //se deplacer qu'avec une coordonnée
+		List<Case> a = this.bataille.getPt(); //recupération du plateau
 		for (Case q :a) {
 			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) {
-				this.sedeplacer(q);
+				this.sedeplacer(q); //selection de la case avec les coordonnées donnés
 			}
 		}
 		
 	}
-		public void attaquer(EtreVivant e) {
+		public void attaquer(EtreVivant e) { //methode utilisé par les enfants d'EtreVivant
 		
 	}
-		public List<Case> ActionDisponible() {
+		public List<Case> ActionDisponible() { //envois la liste des coups possible
 			if (this.isDisponible()) {
 				List<Case> a = this.bataille.getPt();
 				List<Case> r = new ArrayList<>();
 				for (Case b :a) {
 					System.out.println("Test de la case ["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]");
-					int c = Math.abs(b.getPosition().getX()-this.getPosition().getPosition().getX());
-					c = c + Math.abs(b.getPosition().getY()-this.getPosition().getPosition().getY());
-					if (c < this.getMouvement() && b != this.getPosition()) {
+					int c = Math.abs(b.getPosition().getX()-this.getPosition().getPosition().getX()); //recuperation de la distance potentiel en x 
+					c = c + Math.abs(b.getPosition().getY()-this.getPosition().getPosition().getY()); //recuperation de la distance potentiel en y
+					if (c < this.getMouvement() && b != this.getPosition()) { //si elle est atteignable
 						System.out.println("Ajout de la case ["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]");
-						r.add(b);
+						r.add(b); //ajout de la case si elle est valide
 						
 					}
 				}
@@ -236,7 +236,7 @@ public void obtenirArmure() { //obtention d'une armure
 			}
 			
 		}
-		public String AfficherDisp() {
+		public String AfficherDisp(){ //sortie string de la fonction ActionDisponible() 
 			String a ="";
 			List<Case> r = this.ActionDisponible();
 			if (r != null) {
@@ -258,34 +258,28 @@ public void obtenirArmure() { //obtention d'une armure
 		
 		
 		
-		public boolean getDisponible() {
+		
+	
+	
+	public String description() { //Sortie caratère des infos du perso pour la sauveragde
+		String a = "-"+this.getPosition().getPosition().getX()+"/"+this.getPosition().getPosition().getY()+","+this.getNom()+","+this.getVie()+","+this.getMouvement();
+		if (this.maPossession != null) {
+			a = a + "\n*"+this.maPossession.getClass().getSimpleName()+","+this.maPossession.getNom();//Sortie caratère des infos de l'arme du perso pour la sauveragde
+		} 
+		if (this.monArmure != null) {
+			a = a + "\n+"+this.monArmure.getClass().getSimpleName()+","+this.monArmure.getPA(); //Sortie caratère des infos de l'armure du perso pour la sauveragde
+		}
+		return a;
+		
+	}
+	//getter et setter
+	public boolean getDisponible() {
 			return disponible;
 		}
 
 		public void setDisponible(boolean disponible) {
 			this.disponible = disponible;
 		}
-	
-	public String description() {
-		String a = "-"+this.getPosition().getPosition().getX()+"/"+this.getPosition().getPosition().getY()+","+this.getNom()+","+this.getVie()+","+this.getMouvement();
-		if (this.maPossession != null) {
-			a = a + "\n*"+this.maPossession.getClass().getSimpleName()+","+this.maPossession.getNom();
-		}
-		return a;
-		
-	}
-	public String description() {
-		String a = "-"+this.getPosition().getPosition().getX()+"/"+this.getPosition().getPosition().getY()+","+this.getNom()+","+this.getVie()+","+this.getMouvement();
-		if (this.maPossession != null) {
-			a = a + "\n*"+this.maPossession.getClass().getSimpleName()+","+this.maPossession.getNom();
-		}
-		if (this.monArmure != null) {
-			a = a + "\n+"+this.monArmure.getClass().getSimpleName()+","+this.monArmure.getPA();
-		}
-		return a;
-		
-	}
-	//getter et setter
 public int getVie() {
 		return vie;
 	}
