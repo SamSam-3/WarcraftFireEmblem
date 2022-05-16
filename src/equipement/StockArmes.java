@@ -27,7 +27,7 @@ public class StockArmes {
 		armures.add(d);
 		
 	}
-	public String afficherArmes() {
+	public String afficherArmes() { //affiches les différentes armes
 		String chaine = "";
 		int i = 1;
 		for (Epee epee : epees) {
@@ -51,11 +51,11 @@ public class StockArmes {
 		return chaine;
 	}
 
-	public Arme selectionner(int numero) {
+	public Arme selectionner(int numero) { //renvois l'arme avec l'index n
 		return armes.get(numero);
 		
 	}
-	public Armure selectionnerA(int numero) {
+	public Armure selectionnerA(int numero) { //renvois l'armure avec l'index n
 		return armures.get(numero);
 		
 	}
@@ -73,12 +73,13 @@ public class StockArmes {
 
 		}
 	}
-	
+	//renvois le nombres des armes 
 	public int donnerNombreArme() {
 		return armes.size();
 	}
+	//renvois le nombres des armures
 	public int donnerNombreArmure() {
-		// TODO Auto-generated method stub
+		
 		return armures.size();
 	}
 }
