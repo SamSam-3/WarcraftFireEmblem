@@ -6,19 +6,19 @@ import plateau.Coordonne;
 
 public class Homme extends EtreVivant{
 
-	public Homme(String n, int v) {
+	public Homme(String n, int v) { //constructeur
 		super(n, v);
 		mouvement = 3;
 		Initial= "  H  " ;
 	}
 
-	public void attaquer(EtreVivant v) {
-		if (v instanceof Homme) {
+	public void attaquer(EtreVivant v) { //atttaquer
+		if (v instanceof Homme) { //si la personne attaqué est dans le camp de l'attaquant , il ne se passe rien
 			System.out.println("Je ne peux attaquer quelqu'un de mon camps");
 		}
-		else {
-			this.combat(v);
-			this.getBataille().setTourJouee(true);
+		else {//au sinon
+			this.combat(v); //combat entre l'attaquant et le défensseur
+			this.getBataille().setTourJouee(true); //le tour est joué
 		}
 		
 	}
