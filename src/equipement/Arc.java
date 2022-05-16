@@ -5,8 +5,8 @@ import etreVivant.EtreVivant;
 public class Arc extends Arme {
 	private int nombreFleche;
 	private String name;
-	public Arc(String n) {
-		super(80, "Arc");
+	public Arc(String n,int d) {
+		degat = d;
 		name = n;
 		
 	}
@@ -19,7 +19,7 @@ public class Arc extends Arme {
 	}
 	public void attaquer(EtreVivant d) {
 		if(this.nombreFleche > 0 ) {
-		d.setVie(d.getVie()-this.degat);
+		d.PrendreCoup(this.degat);
 		this.nombreFleche--;
 		if (d.getVie() < 0){
 			d.setVie(0);
