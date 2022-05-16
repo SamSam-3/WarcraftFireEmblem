@@ -10,7 +10,7 @@ public class Camps {
 
 	public void ajouterEtreVivant(EtreVivant compagnon) {
 		compagnons.add(compagnon);
-		System.out.print("t");
+		
 	}
 
 	public void supprimerCompagnon(EtreVivant compagnon) {
@@ -18,7 +18,7 @@ public class Camps {
 	}
 
 	public int nbCompagnon() {
-		System.out.print("y");
+		
 		return compagnons.size();
 	}
 
