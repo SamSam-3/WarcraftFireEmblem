@@ -42,7 +42,7 @@ public class Bataille {
 	private StockArmes Armures;
 	
 	
-	public void ajouter(Homme homme,Coordonne e) {
+	public void ajouter(Homme homme,Coordonne e) { //ajout d'un homme à une coordonne donné
 		String a ="";
 		for(Case q: this.getPt()){ //Pour toutes les cases du plateau
 			a += "["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]"; // Affiche le X et Y
@@ -50,9 +50,9 @@ public class Bataille {
 				a = a + "est occup� par : "+ q.getOccupant().getNom(); // Affiche si la case est occupé
 			}
 			a += "\n";
-			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) { //Si la case correspond a celle du personnage
-				 homme.setPosition(q);
-				 q.setOccupant(homme);//La case lui appartient
+			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) { //Si la case correspond a celle donné
+				 homme.setPosition(q); //il occupe la case
+				 q.setOccupant(homme);//La case est occupé par l'homme
 				 System.out.println(q.getOccupant().getNom()+" occupe la case "+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
 			 }
 		 }
@@ -60,7 +60,7 @@ public class Bataille {
 		campHomme.ajouterEtreVivant(homme); // Ajoute l'homme dans son camp
 	}
 
-	public void ajouter(Orc orc,Coordonne e) {
+	public void ajouter(Orc orc,Coordonne e) {//ajout d'un orc  à une coordonne donné
 		String a ="";
 		for(Case q: this.getPt()){ //Pour toutes les cases
 			a += "["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]"; //Affiche la position de la case
@@ -69,8 +69,8 @@ public class Bataille {
 			}
 			a += "\n";
 			if (q.getPosition().getX() == e.getX() && q.getPosition().getY() == e.getY()) { // Si la case correspond a celle du personnage
-				 orc.setPosition(q);
-				 q.setOccupant(orc);//La case lui appartient
+				 orc.setPosition(q); //il occupe la case
+				 q.setOccupant(orc); //la case est occupé par l'orc
 				 System.out.println(q.getOccupant().getNom()+" occupe la case "+"["+ q.getPosition().getX()+"/"+q.getPosition().getY()+"]");
 			 }
 		 }
@@ -79,24 +79,24 @@ public class Bataille {
 	}
 	
 
-	public void eliminer(EtreVivant etreVivant) {
+	public void eliminer(EtreVivant etreVivant) { //retire un etreVivant de la bataille
 		if (etreVivant instanceof Homme) {
 			campHomme.supprimerCompagnon(etreVivant);
 			if (campOrc.nbCompagnon() > 0 && campHomme.nbCompagnon() == 0) {
-				this.victoire = "Homme";
+				this.victoire = "Homme"; //si le dernier orc est éliminé , la victoire reviens au camp adverse
 		}
 		}
 			
 			else if(etreVivant instanceof Orc) {
 				campOrc.supprimerCompagnon(etreVivant);
 				if (campOrc.nbCompagnon() == 0 && campHomme.nbCompagnon() > 0) {
-					this.victoire = "Orc";
+					this.victoire = "Orc"; //si le dernier orc est éliminé , la victoire reviens au camp adverse
 			}
 			}
 	}
 
 
-	public EtreVivant selectionner(TypeEtreVivant typeEtreVivant, int numero) {
+	public EtreVivant selectionner(TypeEtreVivant typeEtreVivant, int numero) { 
 		if (typeEtreVivant == TypeEtreVivant.HOMME) {
 			return campHomme.selectionner(numero);
 		} else {
@@ -112,15 +112,15 @@ public class Bataille {
 		}
 	}
 
-	public int donnerNombreHommes() {
+	public int donnerNombreHommes() { //retourne le nombres d'homme
 		System.out.print("i");
 		return campHomme.nbCompagnon();
 	}
-	public int donnerNombreOrc() {
+	public int donnerNombreOrc() { //retourn le nombres d'orc
 		return campOrc.nbCompagnon();
 	}
 
-	public void sauvegarder() throws IOException {
+	public void sauvegarder() throws IOException { 
 		Path chemin = Paths.get("sauvegarde.txt"); // Fichier de sauvegarde
 		if(Files.exists(chemin)){ //S'il le fichier existe
 			System.out.println("le fichier existe d�j�");
@@ -142,7 +142,8 @@ public class Bataille {
 	}
 		else {
 			System.out.println("creation du fichier");
-			Path file = Files.createFile(chemin);
+			Path file = Files.createFile(chemin); //creation du fichier de sauvegarde
+			this.sauvegarder(); //bouclage 
 		}
 	
 		
@@ -171,23 +172,23 @@ public class Bataille {
 				Homme a = new Homme(nom, vie); // Crée un objet Homme avec ses infos
 				a.rejointBataille(this, c); // Le fait rejoindre la bataille
 
-				System.out.println(f.get(j+1).charAt(0));
-				if (f.get(j + 1).charAt(0) == '*'){
+				System.out.println(f.get(j+1).charAt(0)); 
+				if (f.get(j + 1).charAt(0) == '*'){  //si la ligne suivante commence par une * 
 					j++;
-					System.out.println("ok crea2");
-					String[] ga = f.get(j).split(",");
-					String nomArme = ga[1];
-					String categorie  = ga [0];
+					String[] ga = f.get(j).split(","); //récupération des infos
+					String nomArme = ga[1]; //récupération du nom
+					String categorie  = ga [0]; //récuperaton du type
 					switch(categorie) {
 						case "epee":
-							Epee b = new Epee(nomArme);
-							this.getsk().ajouterArme(b);
-							a.prendre(b);
+							Epee b = new Epee(nomArme,20*Integer.parseInt(nomArme.substring(3,4))); //création d'une épée
+							this.getsk().ajouterArme(b); //ajout dans l'arsenal
+							a.prendre(b); //on équipe l'arme
 							break;
 						case "arc":
-							Arc d = new Arc(nomArme);
-							this.getsk().ajouterArme(d);
-							a.prendre(d);
+							Arc d = new Arc(nomArme,15*Integer.parseInt(nomArme.substring(2,3))); //création d'un arc
+							this.getsk().ajouterArme(d); //ajout dans l'arsenal
+							a.prendre(d); //on équipe l'arme
+							break;
 							
 					}
 					
@@ -196,37 +197,36 @@ public class Bataille {
 			}
 			
 			j = j++;
-			System.out.println(f.get(j));
-			int nombreOrc = Integer.parseInt(f.get(j).substring(f.get(j).length() - 1));
+			System.out.println(f.get(j)); 
+			int nombreOrc = Integer.parseInt(f.get(j).substring(f.get(j).length() - 1)); //nombre d'orc dans le fichier de sauvegarde
 			System.out.print("Il y a "+nombreOrc+" orcs dans ce fichier de sauvegarde");
 			j++;
 			for(int i = 0;i<nombreOrc;i++) {
-				int X = Integer.parseInt(f.get(j).substring(1,2));
-				int Y = Integer.parseInt(f.get(j).substring(3,4));
+				int X = Integer.parseInt(f.get(j).substring(1,2)); // x du perso
+				int Y = Integer.parseInt(f.get(j).substring(3,4)); // y du perso
 				Coordonne c = new Coordonne(X, Y);
-				String[] héros = f.get(j).split(",");
-				String nom = héros[1];
-				int vie = Integer.parseInt(héros[2]);
-				Orc a = new Orc(nom, vie);
-				a.rejointBataille(this, c);
-				System.out.println("ok crea");
+				String[] héros = f.get(j).split(","); //recupération des autres donnes
+				String nom = héros[1]; //nom du perso
+				int vie = Integer.parseInt(héros[2]); //vie du perso
+				Orc a = new Orc(nom, vie); //creation d'un orc avec les donnes du fichier
+				a.rejointBataille(this, c); //instanciation dans la bataille
 				System.out.println(f.get(j+1).charAt(0));
-				if (f.get(j+1).substring(0,1).equals("*")){
+				if (f.get(j+1).substring(0,1).equals("*")){ //si la ligne suivante commence par une *  
 					j++;
-					System.out.println("ok crea2");
-					String[] ga = f.get(j).split(",");
-					String nomArme = ga[1];
-					String categorie  = ga [0];
+					
+					String[] ga = f.get(j).split(","); //recupération info armes
+					String nomArme = ga[1]; //nom arme
+					String categorie  = ga [0]; //type arme
 					switch(categorie) {
 						case "epee":
-							Epee b = new Epee(nomArme);
-							this.getsk().ajouterArme(b);
-							a.prendre(b);
+							Epee b = new Epee(nomArme,20*Integer.parseInt(nomArme.substring(3,4))); //création d'une épée
+							this.getsk().ajouterArme(b); //ajout arsenal
+							a.prendre(b); //on équipe l'arme
 							break;
 						case "arc":
-							Arc d = new Arc(nomArme);
-							this.getsk().ajouterArme(d);
-							a.prendre(d);
+							Arc d = new Arc(nomArme,15*Integer.parseInt(nomArme.substring(2,3))); //création d'un arc
+							this.getsk().ajouterArme(d); //ajout arsenal
+							a.prendre(d); //on équipe l'arme
 							
 					}
 					
