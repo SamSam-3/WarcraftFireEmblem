@@ -233,7 +233,7 @@ public class Bataille {
 				}
 				j++;
 			}
-			this.setTour(TourActuel);
+			this.setTour(TourActuel); //reprise au tour de la sauvegarde
 			System.out.println("fin de la reprise");
 			
 		}
@@ -242,54 +242,54 @@ public class Bataille {
 		}
 	}
 	
-	public void passerletour() {
-		if (this.getTour() == "Homme") {
-			this.setTour("Orc");
+	public void passerletour() { //passer le tour
+		if (this.getTour() == "Homme") { //si le tour actuel est celui des hommes
+			this.setTour("Orc"); //passe le tour aux orcs 
 			for (EtreVivant c : this.getCampOrc().getCompagnons()) {
-				c.setDisponible(true);
+				c.setDisponible(true); //rend tout les orcs actifs
 			}
 			for (EtreVivant c : this.getCampHomme().getCompagnons()) {
-				c.setDisponible(false);
+				c.setDisponible(false); //rend tout les hommes inactifs
 			}
 		}
-		else {
-			this.setTour("Homme");
+		else { //si le tour actuel est celui des orcs 
+			this.setTour("Homme");//passe le tour aux hommes
 			for (EtreVivant c : this.getCampHomme().getCompagnons()) {
-				c.setDisponible(true);
+				c.setDisponible(true); //rend tout les hommes actifs
 			}
 			for (EtreVivant c : this.getCampOrc().getCompagnons()) {
-				c.setDisponible(false);
+				c.setDisponible(false); //rend tout les orcs inactifs
 			}
 		}
 	}
-	public List<Case> initialisation(){
-		this.setTour("Homme");
+	public List<Case> initialisation(){ //initalisation
+		this.setTour("Homme"); //donne le tour aux hommmes
 		List<Case> b = new ArrayList<>();
-		for(int i=1;i<10;i++) {
+		for(int i=1;i<10;i++) { //creation du plateau
 			for(int j=1;j<10;j++) {
 				Coordonne c = new Coordonne(j, i);
-				Case a = new Case(c, this);
-				this.AjCase(a);
+				Case a = new Case(c, this);  //creation d'une case
+				this.AjCase(a); //ajout au plateau
 			}
 		}
-		this.GenererArme(10);
-		this.GenererArmure(10);
+		this.GenererArme(10); //remplissage arsenal 
+		this.GenererArmure(10); //remplissage arsenal armure
 	return pt;	
 	}
-	public Case SelectionerCase(Coordonne c) {
+	public Case SelectionerCase(Coordonne c) { //renvois la case qui a les coordonnées données
 		Case a = null;
 		List<Case> r = this.getPt();
-		if (r != null) {
-		for (Case b : r)
+		if (r != null) { //si le plateau n'est pas vide
+		for (Case b : r) //pour toutes les cases du tableau
 		{
 			if (b.getPosition().getX() == c.getX() && b.getPosition().getY() == c.getY()) {
-				a = b ;
+				a = b ; //recherche de la case 
 			}	
 		}
 		}
 		return a;
 	}
-	public String AfficherCase(Coordonne c) {
+	public String AfficherCase(Coordonne c) { //afficher la case et son potentiel occupant
 		String a ="";
 		Case b = this.SelectionerCase(c);
 		a = a + "["+ b.getPosition().getX()+"/"+b.getPosition().getY()+"]";
@@ -298,7 +298,7 @@ public class Bataille {
 			a = a +"Point de vie : "+ b.getOccupant().getVie()+ "Point de mouvement : "+ b.getOccupant().getMouvement();
 			if (b.getOccupant().getMaPossession() != null)
 			{
-				a  = a +"\n il détient "+ b.getOccupant().getMaPossession().getNom();
+				a  = a +"\n il détient "+ b.getOccupant().getMaPossession().getNom(); //arme de l'occupant
 			}
 			this.setPersoActif(b.getOccupant());
 		}
@@ -308,7 +308,7 @@ public class Bataille {
 		return a;
 		
 	}
-	public String etatDetail() {
+	public String etatDetail() { 
 		String a ="";
 		List<Case> r = this.getPt();
 		if (r != null) {
@@ -327,7 +327,7 @@ public class Bataille {
 		}
 		return a ;
 	}
-	public void remplissageInit() {
+	public void remplissageInit() { //remplissage d'une nouvelle partie
 		Orc PionO1 = new Orc("Orc 1", 100);
 		Orc PionO2 = new Orc("Orc 2", 100);
 		Orc PionO3 = new Orc("Orc 3", 100);
@@ -384,7 +384,7 @@ public class Bataille {
 		PionH8.rejointBataille(this, h8);
 		PionH9.rejointBataille(this, h9);		
 		
-		Homme ChH1 = new Homme("Chevalier Homme 1", 80);
+		Homme ChH1 = new Homme("Chevalier Homme 1", 80); //creation chevaliers
 		ChH1.setInitial(" ChH ");
 		ChH1.setMouvement(5);
 		Coordonne hch1 = new Coordonne(9,8);
@@ -408,7 +408,7 @@ public class Bataille {
 		
 		
 	}
-	public String afficherPlateau() {
+	public String afficherPlateau() { 
 		
 		String a = "__________________________________________________________________________________";
 		List<Case> r = this.getPt();
