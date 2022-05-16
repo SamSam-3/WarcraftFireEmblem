@@ -2,8 +2,8 @@ package equipement;
 
 public class Epee extends Arme{
 	private String name;
-	public Epee(String n) {
-		super(80, "epee");
+	public Epee( String n,int d) {
+		degat = d;
 		name = n;
 		
 	}
