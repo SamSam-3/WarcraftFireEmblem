@@ -24,79 +24,81 @@ public abstract class EtreVivant {
 	protected Armure monArmure;
 	private int vieMax; 
 	
-	protected EtreVivant(String n,int v){
+	protected EtreVivant(String n,int v){ //constructeur
 		nom = n;
 		vie = v;
-		vieMax = v;
+		vieMax = v; // sert pour rendre tout ses pv à un combattant 
 	}
 	
 	public void mourir() {
-		this.getPosition().setOccupant(null);
-		this.setPosition(null);
-		this.bataille.eliminer(this);
+		this.lacher(); //le perso lache son arme
+		this.perdreArmure(); // le perso lache son armure
+		this.getPosition().setOccupant(null); //la case qui l'occupait devient vide
+		this.setPosition(null); //il n'existe plus dans le plateau
+		this.bataille.eliminer(this); //il est retirer de la bataille
 	}
 	private void lacher() {
-		this.maPossession.lacher();
-		this.setMaPossession(null);
+		this.maPossession.lacher(); //l'arme équipée n'a plus de propriétaire
+		this.setMaPossession(null); //le combattant n'a plus d'arme d'équipé
 	}
 	public void perdreArmure() {
-		this.monArmure.lacher();
-		this.setMonArmure(null);
+		this.monArmure.lacher(); //l'armure équipée n'a plus de propriétaire
+		this.setMonArmure(null); //le combattant n'a plus d'armure d'équipé
 	}
-	public void PrendreCoup(int dg) {
-		if (this.getMonArmure() != null){
+	public void PrendreCoup(int dg) { //prise de dégat
+		if (this.getMonArmure() != null){ //si le perso à une armure 
 			System.out.print("mon armure prend pour moi");
-			this.setVie(this.getVie()-this.getMonArmure().prendreCoup(dg));
+			this.setVie(this.getVie()-this.getMonArmure().prendreCoup(dg)); //le reste des dégats après passage de l'armure est retirer au perso
 		}
 		else {
-			this.setVie(this.getVie()-dg);
+			this.setVie(this.getVie()-dg); //tout les dégats sont pris par les pv du perso
 		}
 	}
-	public void combat(EtreVivant h) {
+	public void combat(EtreVivant h) { //ne peut être déclancher qu'a partir d'un déplacement sur une case déjà occupé
 		while(this.getVie() > 0 && h.getVie() > 0 ) {
 			int min = 1;
 			int max = 10;
 			
-			Random random = new Random();
+			Random random = new Random(); //initalisation de l'aléatoire 
 
-			int value = random.nextInt(max + min);
+			int value = random.nextInt(max + min); //tirage entre min et max
 			System.out.println(value);
-			if(value < 5) {
-				if (this.getMaPossession() != null) {
+			if(value < 5) { //si le tirage est inférieur à 5(50%)
+				if (this.getMaPossession() != null) { //si le perso à une arme
 					System.out.println("j'attaque avec"+this.getMaPossession().getNom() );
 					
-				this.getMaPossession().attaquer(h);
+				this.getMaPossession().attaquer(h); //le perso attaque l'arme équipée
 				}
 				else {
-					h.PrendreCoup(10);
+					h.PrendreCoup(10); //au sinon il inflige 10 de dégats
 				}
 				System.out.println(""+ h.getNom()+" a "+h.getVie()+"point de vie" );
-				if(h.getVie() <= 0 ) {
+				if(h.getVie() <= 0 ) { //si l'adversaire meurt
 					System.out.println(""+ h.getNom()+" est morte");
 					
-					this.getPosition().setOccupant(null);
-					this.setPosition(h.getPosition());
+					this.getPosition().setOccupant(null); //la case avant l'attaque se vide
+					this.setPosition(h.getPosition()); //le perso occupe la case de l'adversaire battu
 					
-					h.mourir();
-					this.getPosition().setOccupant(this);
-					this.obtenir();
-					this.setVie(this.getVieMax());
+					h.mourir(); //l'adversaire battu meurt
+					this.getPosition().setOccupant(this); //la case occupé précédement par l'adversaire battu devient occupé par le perso
+					this.obtenir(); //le perso obtient un équipement au hasard dans l'arsenal
+					this.setVie(this.getVieMax()); //l'attaquant regagne toute sa vie
 					
 				}
 			}
-			else {
-				if (h.getMaPossession() != null) {
-					h.getMaPossession().attaquer(this);
+			else { //si le tirage est supérieur a 5 (50%)
+				if (h.getMaPossession() != null) { //si le défensseur à une arme
+					h.getMaPossession().attaquer(this); //il attaque avec son arme
 					}
 					else {
-						this.PrendreCoup(10);
+						this.PrendreCoup(10); //l'attaquant prend 10 de dégat
 					}
 				System.out.println(" "+ this.getNom()+" a "+this.getVie()+"point de vie" );
-				if(this.getVie() <= 0 ) {
+				if(this.getVie() <= 0 ) { //si l'attaquant n'a plus de vie
 					System.out.println(" "+ this.getNom()+" est mort");
-					this.mourir();
-					h.obtenir();
-					h.setVie(h.getVieMax());
+					this.mourir(); // l'attaquant meurt
+					h.obtenir(); //le défensseur obtient un équipement de l'arsenal
+					h.setVie(h.getVieMax()); //le défensseur regagne toute sa vie
 				}
 			}
 		
@@ -104,107 +106,94 @@ public abstract class EtreVivant {
 	
 		
 	}
-	public void prendre(Arme d) {
+	public void prendre(Arme d) { //prise d'une arme
 		
-		if (this.maPossession != null) {
-			this.lacher();
+		if (this.maPossession != null) { //si le perso a déjà une arme
+			this.lacher(); //il lache son arme
 		}
-		if(d.estPris()) {
-			d.getProprietaire().lacher();
-		}
-		this.maPossession = d;
-		d.setProprietaire(this);
-		System.out.println(this.getNom() + " prend possession de "+ d.getNom());
-		}
-			
-	public void prendre(Arme d) {
-		
-		if (this.maPossession != null) {
-			this.lacher();
-		}
-		if(d.estPris()) {
+		if(d.estPris()) { //si l'arme a déjà un propriétaire
 			System.out.println(d.getProprietaire().getNom() + " lache "+ d.getNom());
-			d.getProprietaire().lacher();
+			d.getProprietaire().lacher(); //le propriétaire lache l'arme ciblé
 		}
-		this.maPossession = d;
-		d.setProprietaire(this);
+		this.maPossession = d; //prise de l'arme
+		d.setProprietaire(this); //l'arme prend pour propriétaire le perso
 		System.out.println(this.getNom() + " prend possession de "+ d.getNom());
 		}
 	
-public void prendre(Armure d) {
+public void prendre(Armure d) { //prise d'une armure
 		
-		if (this.monArmure != null) {
-			this.perdreArmure();
+		if (this.monArmure != null) { // si le perso a déjà une armure
+			this.perdreArmure(); //il perd son armure
 		}
-		if(d.getProprietaire() != null) {
+		if(d.getProprietaire() != null) { //si l'armure a déjà un propriétaire
 			System.out.println(d.getProprietaire().getNom() + " lache "+ d.getNom());
-			d.getProprietaire().lacher();
+			d.getProprietaire().lacher();//le propriétaire lache l'armure ciblé
 		}
-		this.monArmure = d;
-		d.setProprietaire(this);
+		this.monArmure = d;//prise de l'armure
+		d.setProprietaire(this);//l'armure prend pour propriétaire le perso
 		System.out.println(this.getNom() + " prend possession de "+ d.getNom());
 		}
 
-public void obtenir() {
+public void obtenir() { //tirage pour savoir si le perso obtient une armure ou une arme
 	int min = 0;
 	int max = 2;
-	Random random = new Random();
-	int value = random.nextInt(max + min);
-	if (value == 1) {
-		this.obtenirArmure();
+	Random random = new Random(); 
+	int value = random.nextInt(max + min); //tirage alléatoire entre mix et max
+	if (value == 1) { // 1 chance sur 3 d'avoir une armure
+		this.obtenirArmure(); // il obtient une armure
 	}
 	else {
-		this.obtenirArme();
+		this.obtenirArme(); //il obtient une arme
 	}
 	
 }
-	public void obtenirArme() {
+	public void obtenirArme() { //obtention d'une arme
 		
 		int min = 0;
-		int max = this.bataille.getsk().donnerNombreArme();
+		int max = this.bataille.getsk().donnerNombreArme(); //max = nombre d'arme dans l'arsenal
 
 		Random random = new Random();
-		int value = random.nextInt(max + min);
-		this.prendre(this.bataille.getsk().selectionner(value));
+		int value = random.nextInt(max + min); //tirage alétoire
+		this.prendre(this.bataille.getsk().selectionner(value)); //prise d'une arme à l'index du tirage aléatoire
 	}
-public void obtenirArmure() {
+public void obtenirArmure() { //obtention d'une armure
 		
 		int min = 0;
-		int max = this.bataille.getArmures().donnerNombreArmure();
+		int max = this.bataille.getArmures().donnerNombreArmure(); //max = nombre d'armure dans l'arsenal
 
 		Random random = new Random();
-		int value = random.nextInt(max + min);
-		this.prendre(this.bataille.getArmures().selectionnerA(value));
+		int value = random.nextInt(max + min); // tirage alétoire
+		this.prendre(this.bataille.getArmures().selectionnerA(value)); //prise d'une armure à l'index du tirage aléatoire
 	}
 	public void sedeplacer(Case c) {
-		if(this.position != null){
+		if(this.position != null){ //si le preso existe dans le plateau
 		System.out.println(this.getNom()+" : je suis en "+this.getPosition().getPosition().getX() +":"+this.getPosition().getPosition().getY()+"]");
-		int distancePot = 0;
-		if (c.getPosition().getX()<this.getPosition().getPosition().getX()) {
-			distancePot = distancePot + this.getPosition().getPosition().getX() - c.getPosition().getX();
+		int distancePot = 0; //initialisation de la distance potentiel
+		if (c.getPosition().getX()<this.getPosition().getPosition().getX()) { //si x cible < x départ
+			distancePot = distancePot + this.getPosition().getPosition().getX() - c.getPosition().getX(); //différence en X
 		}
-		else {
-			distancePot = distancePot + c.getPosition().getX() - this.getPosition().getPosition().getX() ;
+		else { //si x cible > x départ
+			distancePot = distancePot + c.getPosition().getX() - this.getPosition().getPosition().getX() ;  //différence en X
 		}
-		if (c.getPosition().getY()<this.getPosition().getPosition().getY()) {
+		if (c.getPosition().getY()<this.getPosition().getPosition().getY()) { //si y cible < y départ
 			distancePot = distancePot + this.getPosition().getPosition().getY() - c.getPosition().getY();
 		}
-		else {
+		else { //si y cible > y départ
 			distancePot = distancePot + c.getPosition().getY() - this.getPosition().getPosition().getY() ;
 		} /* distance = distance x + distance y */
-		if (distancePot > this.getMouvement()) {
-			System.out.println(this.nom + " ne peux pas acceder � cette case");
+		if (distancePot > this.getMouvement()) { //si les points de mouvement du perso sont inférieur à la distance entre les deux cases
+			System.out.println(this.nom + " ne peux pas acceder � cette case"); //rien ne se passe
 		}
 		else {
-			if (c.getOccupant() != null) {
-				this.attaquer(c.getOccupant());
+			if (c.getOccupant() != null) { //si la case cible à un occupant
+				this.attaquer(c.getOccupant()); //le perso attaque la personne qui occupe la case
 			}
 			else {
-				this.position.setOccupant(null);
-				this.position = c;
+				this.position.setOccupant(null); //la case départ deviens vide 
+				this.position = c; //le perso occupe la case cible
 				System.out.println("Je me d�place en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
-				c.setOccupant(this);
-				this.setDisponible(false);
+				c.setOccupant(this); //la case cible prend pour propriétaire le perso
+				this.setDisponible(false); // le perso termine son tour
 			}
 		}
 	}
@@ -296,6 +285,7 @@ public void obtenirArmure() {
 		return a;
 		
 	}
+	//getter et setter
 public int getVie() {
 		return vie;
 	}
