@@ -265,9 +265,9 @@ public class Bataille {
 	public List<Case> initialisation(){ //initalisation
 		this.setTour("Homme"); //donne le tour aux hommmes
 		List<Case> b = new ArrayList<>();
-		for(int i=1;i<10;i++) { //creation du plateau
-			for(int j=1;j<10;j++) {
-				Coordonne c = new Coordonne(j, i);
+		for(int i=0;i<10;i++) { //creation du plateau
+			for(int j=0;j<10;j++) {
+				Coordonne c = new Coordonne(i, j);
 				Case a = new Case(c, this);  //creation d'une case
 				this.AjCase(a); //ajout au plateau
 			}

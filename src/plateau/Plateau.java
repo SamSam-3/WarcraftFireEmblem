@@ -16,21 +16,23 @@ import java.util.ArrayList;
 
 public class Plateau extends Canvas implements MouseListener{
     private Bataille bataille;
-    final int NBCASE = 21;
-    public Plateau(Bataille bataille){
+    private InfoCaracter infos;
+    final int NBCASE = 10;
+    public Plateau(Bataille bataille, InfoCaracter infos){
+        this.infos = infos;
         this.bataille = bataille;
-        setSize(840,840);
+        setSize(600,600);
         addMouseListener(this);
     }
 
     @Override
     public void paint(Graphics g) {
-
+        System.out.println(this.bataille.getPt().size());
         Image image = null;
 
         // Dessine le plateau de jeu
-        for(int i=0;i<21;i++){ //21 cases en y
-            for(int j=0;j<21;j++){ // 21 cases en x
+        for(int i=0;i<10;i++){ // 10 cases en y
+            for(int j=0;j<10;j++){ // 10 cases en x
 
                 try {
                     image = ImageIO.read(getClass().getResourceAsStream("../images/plaineBord.png")); // Set l'image du plateau
@@ -38,7 +40,7 @@ public class Plateau extends Canvas implements MouseListener{
                     e.printStackTrace();
                 }
 
-                g.drawImage(image, j*40, i*40,40,40,this); // (Re)dessine l'image sur le canvas
+                g.drawImage(image, j*60, i*60,60,60,this); // (Re)dessine l'image sur le canvas
 
                 // Récupère la case qui correspond
                 Case selectedCase = this.bataille.getPt().get(i*NBCASE+j);
@@ -59,7 +61,7 @@ public class Plateau extends Canvas implements MouseListener{
                     }
                     }
 
-                    g.drawImage(image, j*40, i*40,40,40,this); // (Re)dessine l'image sur le canvas
+                    g.drawImage(image, j*60, i*60,60,60,this); // (Re)dessine l'image sur le canvas
                 }
             }
         }
@@ -77,15 +79,17 @@ public class Plateau extends Canvas implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        int x = e.getX()/40;
-        int y = e.getY()/40;
+        int x = e.getX()/60;
+        int y = e.getY()/60;
 
-        if(0 <= x & x <= 20 & 0 <= y & y <= 20){ //Si x et y sont bien dans le plateau de jeu
+        System.out.println(e.getButton());
+
+        if(0 <= x & x <= 9 & 0 <= y & y <= 9){ //Si x et y sont bien dans le plateau de jeu
             Case selectedCase = this.bataille.getPt().get(y*NBCASE+x); //récupère les infos de la case
             if(selectedCase.getOccupant() != null){ // Si la case appartient à un être vivant
                 // Afficher actions
                 EtreVivant occupant = selectedCase.getOccupant();
-
+                infos.updateCaracter(occupant);
 
                 System.out.println("~~>  "+occupant.getNom());
                 System.out.println("Vie : "+occupant.getVie()+"\nEnergie : "+occupant.getMouvement());
@@ -106,32 +110,5 @@ public class Plateau extends Canvas implements MouseListener{
 
     }
 
-    public static void drawPortee(int n) {
-        n+=1;
-
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=n-i;j++){
-                System.out.print("   ");
-            }
-
-            for(int j=1;j<=i*2-1;j++){
-                System.out.print(" * ");
-            }
-
-            System.out.println();
-
-        }
-        for(int i=n-1;i>0;i--){
-            for(int j=1;j<=n-i;j++){
-                System.out.print("   ");
-            }
-
-            for(int j=1;j<=i*2-1;j++){
-                System.out.print(" * ");
-            }
-
-            System.out.println();
-        }
-    }
 }
 

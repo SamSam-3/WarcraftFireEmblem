@@ -1,7 +1,7 @@
 package Tests;
 
 import affrontement.Bataille;
-import plateau.Actions;
+import plateau.InfoCaracter;
 import plateau.Plateau;
 
 import javax.accessibility.Accessible;
@@ -23,8 +23,10 @@ public class TestGUI extends JComponent implements Accessible {
 
         JPanel panel1 = new JPanel(); // Le plateau de jeu
 
-        Actions actions = new Actions();
-        JPanel panel2 = actions.setPanel(); // La bar des actions
+        InfoCaracter infos = new InfoCaracter();
+        JPanel panel2 = infos.setPanel(); // La bar des actions
+
+        panel1.add(new Plateau(bataille,infos));
 
         f.setSize(1100, 900);
         f.setTitle("Plateau");
@@ -34,11 +36,11 @@ public class TestGUI extends JComponent implements Accessible {
         f.setLocationRelativeTo(null);
         f.setResizable(false);
 
-        panel1.add(new Plateau(bataille));
-        panel1.setBounds(200, 200, 840, 840);
+        Box box = Box.createHorizontalBox();
+        box.add(panel1);
+        box.add(panel2);
 
-        f.add(panel1, BorderLayout.WEST);
-        f.add(panel2, BorderLayout.CENTER);
+        f.add(box, BorderLayout.CENTER);
 
     }
 
