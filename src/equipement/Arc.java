@@ -8,7 +8,7 @@ public class Arc extends Arme {
 	public Arc(String n,int d) { //constructeur
 		degat = d;
 		name = n;
-		nomnreFleche = 30;
+		nombreFleche = 30;
 		
 	}
 	public String getNom() {

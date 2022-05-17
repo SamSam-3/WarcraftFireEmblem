@@ -13,7 +13,16 @@ public class Arme {
 		this.proprietaire = null;
 	}
 	// getters et setters
-	public String getNature() { 
+
+	public int getDegat() {
+		return degat;
+	}
+
+	public void setDegat(int degat) {
+		this.degat = degat;
+	}
+
+	public String getNature() {
 		return nature;
 	}
 	public EtreVivant getProprietaire() {

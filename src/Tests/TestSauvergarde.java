@@ -21,7 +21,7 @@ public class TestSauvergarde {
 	Coordonne c3 = new Coordonne(2,2);
 	Homme Jaina = new Homme("Jaina",50);
 	Homme Jainaa = new Homme("Squalala",150);
-	Epee pa = new Epee("Epee des milles v�rit�s");
+	Epee pa = new Epee("Epee des milles v�rit�s",100);
 	StockArmes sk = new StockArmes();
 	p.setsk(sk);
 	sk.ajouterArme(pa);

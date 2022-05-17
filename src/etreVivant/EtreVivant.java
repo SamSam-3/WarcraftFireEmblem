@@ -6,6 +6,7 @@ import java.util.Random;
 
 import affrontement.Bataille;
 import equipement.Arme;
+import equipement.Armure;
 import equipement.Epee;
 import equipement.StockArmes;
 import plateau.Case;
@@ -38,13 +39,18 @@ public abstract class EtreVivant {
 		this.bataille.eliminer(this); //il est retirer de la bataille
 	}
 	private void lacher() {
-		this.maPossession.lacher(); //l'arme équipée n'a plus de propriétaire
-		this.setMaPossession(null); //le combattant n'a plus d'arme d'équipé
+		if(maPossession != null ){
+			this.maPossession.lacher(); //l'arme équipée n'a plus de propriétaire
+			this.setMaPossession(null); //le combattant n'a plus d'arme d'équipé
+		}
+
 	}
 	public void perdreArmure() {
-		this.monArmure.lacher(); //l'armure équipée n'a plus de propriétaire
-		this.setMonArmure(null); //le combattant n'a plus d'armure d'équipé
-	}
+		if(monArmure != null) {
+			this.monArmure.lacher(); //l'armure équipée n'a plus de propriétaire
+			this.setMonArmure(null); //le combattant n'a plus d'armure d'équipé
+		}
+		}
 	public void PrendreCoup(int dg) { //prise de dégat
 		if (this.getMonArmure() != null){ //si le perso à une armure 
 			System.out.print("mon armure prend pour moi");
@@ -194,6 +200,7 @@ public void obtenirArmure() { //obtention d'une armure
 				System.out.println("Je me d�place en ["+this.getPosition().getPosition().getX() + ":"+ this.getPosition().getPosition().getY()+"]" );
 				c.setOccupant(this); //la case cible prend pour propriétaire le perso
 				this.setDisponible(false); // le perso termine son tour
+				this.getBataille().setTourJouee(true);
 			}
 		}
 	}
@@ -215,7 +222,7 @@ public void obtenirArmure() { //obtention d'une armure
 		
 	}
 		public List<Case> ActionDisponible() { //envois la liste des coups possible
-			if (this.isDisponible()) {
+			if (this.disponible) {
 				List<Case> a = this.bataille.getPt();
 				List<Case> r = new ArrayList<>();
 				for (Case b :a) {
@@ -264,7 +271,7 @@ public void obtenirArmure() { //obtention d'une armure
 	public String description() { //Sortie caratère des infos du perso pour la sauveragde
 		String a = "-"+this.getPosition().getPosition().getX()+"/"+this.getPosition().getPosition().getY()+","+this.getNom()+","+this.getVie()+","+this.getMouvement();
 		if (this.maPossession != null) {
-			a = a + "\n*"+this.maPossession.getClass().getSimpleName()+","+this.maPossession.getNom();//Sortie caratère des infos de l'arme du perso pour la sauveragde
+			a = a + "\n*"+this.maPossession.getClass().getSimpleName()+","+this.maPossession.getNom() +" | Dégats : " + this.maPossession.getDegat();//Sortie caratère des infos de l'arme du perso pour la sauveragde
 		} 
 		if (this.monArmure != null) {
 			a = a + "\n+"+this.monArmure.getClass().getSimpleName()+","+this.monArmure.getPA(); //Sortie caratère des infos de l'armure du perso pour la sauveragde
@@ -350,5 +357,3 @@ public int getVie() {
 
 }
 
-	
-}

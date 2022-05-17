@@ -18,8 +18,8 @@ public class TestCombat {
 		Case f = new Case(d,p);
 		Orc Thrall = new Orc("Thrall",50);
 		Homme Jaina = new Homme("Jaina",50);
-		Epee epee = new Epee("L'épée des milles vérités");
-		Arc arc = new Arc("Arc 1");
+		Epee epee = new Epee("L'épée des milles vérités",100);
+		Arc arc = new Arc("Arc 1",15);
 		StockArmes sk = new StockArmes();
 		p.setsk(sk);
 		sk.ajouterArme(arc);

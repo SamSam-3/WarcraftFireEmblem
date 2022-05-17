@@ -69,6 +69,7 @@ public class controleurPartie {
 			//System.out.println("y : "+ y);
 			Coordonne cor = new Coordonne(x,y);
 			System.out.println(q.AfficherCase(cor)); //affichage des détails de la case sélectionné par coordonnée
+
 			if (q.SelectionerCase(cor).getOccupant() != null )
 			{
 				if(q.getPersoActif().getDisponible()) {

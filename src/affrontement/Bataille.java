@@ -6,11 +6,9 @@ import java.nio.file.FileSystem;
 import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.*;
+import java.util.Random;
 
-import equipement.Arc;
-import equipement.Arme;
-import equipement.Epee;
-import equipement.StockArmes;
+import equipement.*;
 import etreVivant.EtreVivant;
 import etreVivant.Homme;
 import etreVivant.Orc;
@@ -21,6 +19,8 @@ import plateau.Coordonne;
 public class Bataille {
 	private String Tour ;
 	private Camps campHomme = new Camps();
+
+	private EtreVivant PersoActif;
 	private Camps campOrc = new Camps();
 	public Camps getCampHomme() {
 		return campHomme;
@@ -251,8 +251,7 @@ public class Bataille {
 			for (EtreVivant c : this.getCampHomme().getCompagnons()) {
 				c.setDisponible(false); //rend tout les hommes inactifs
 			}
-		}
-		else { //si le tour actuel est celui des orcs 
+		} else { //si le tour actuel est celui des orcs
 			this.setTour("Homme");//passe le tour aux hommes
 			for (EtreVivant c : this.getCampHomme().getCompagnons()) {
 				c.setDisponible(true); //rend tout les hommes actifs
@@ -262,6 +261,7 @@ public class Bataille {
 			}
 		}
 	}
+
 	public List<Case> initialisation(){ //initalisation
 		this.setTour("Homme"); //donne le tour aux hommmes
 		List<Case> b = new ArrayList<>();
@@ -395,12 +395,12 @@ public class Bataille {
 		Coordonne hch2 = new Coordonne(9,2);
 		ChH2.rejointBataille(this, hch2);
 		
-		Homme ChO1 = new Homme("Chevalier Orc 1", 80);
+		Orc ChO1 = new Orc("Chevalier Orc 1", 80);
 		ChO1.setInitial(" ChO ");
 		ChO1.setMouvement(5);
 		Coordonne hco1 = new Coordonne(1,8);
 		ChO1.rejointBataille(this, hco1);
-		Homme ChO2 = new Homme("Chevalier Orc 2", 80);
+		Orc ChO2 = new Orc("Chevalier Orc 2", 80);
 		ChO2.setInitial(" ChO ");
 		ChO2.setMouvement(5);
 		Coordonne hco2 = new Coordonne(1,2);

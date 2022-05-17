@@ -44,7 +44,7 @@ public class Plateau extends Canvas implements MouseListener{
                 Case selectedCase = this.bataille.getPt().get(i*NBCASE+j);
 
                 if(selectedCase.getOccupant() != null) {
-                    System.out.println(selectedCase.getOccupant() instanceof Homme);
+
                     if(selectedCase.getOccupant() instanceof Homme) { // Si c'est un homme
                         try {
                             image = ImageIO.read(getClass().getResourceAsStream("../images/homme.png")); // Set l'image homme
@@ -86,6 +86,7 @@ public class Plateau extends Canvas implements MouseListener{
                 // Afficher actions
                 EtreVivant occupant = selectedCase.getOccupant();
 
+
                 System.out.println("~~>  "+occupant.getNom());
                 System.out.println("Vie : "+occupant.getVie()+"\nEnergie : "+occupant.getMouvement());
 
@@ -104,4 +105,33 @@ public class Plateau extends Canvas implements MouseListener{
     public void mouseExited(MouseEvent e) {
 
     }
+
+    public static void drawPortee(int n) {
+        n+=1;
+
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n-i;j++){
+                System.out.print("   ");
+            }
+
+            for(int j=1;j<=i*2-1;j++){
+                System.out.print(" * ");
+            }
+
+            System.out.println();
+
+        }
+        for(int i=n-1;i>0;i--){
+            for(int j=1;j<=n-i;j++){
+                System.out.print("   ");
+            }
+
+            for(int j=1;j<=i*2-1;j++){
+                System.out.print(" * ");
+            }
+
+            System.out.println();
+        }
+    }
 }
+
