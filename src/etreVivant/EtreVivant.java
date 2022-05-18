@@ -173,22 +173,9 @@ public void obtenirArmure() { //obtention d'une armure
 	}
 	public void sedeplacer(Case c) {
 		if(this.position != null){ //si le preso existe dans le plateau
-		System.out.println(this.getNom()+" : je suis en "+this.getPosition().getPosition().getX() +":"+this.getPosition().getPosition().getY()+"]");
-		int distancePot = 0; //initialisation de la distance potentiel
-		if (c.getPosition().getX()<this.getPosition().getPosition().getX()) { //si x cible < x départ
-			distancePot = distancePot + this.getPosition().getPosition().getX() - c.getPosition().getX(); //différence en X
-		}
-		else { //si x cible > x départ
-			distancePot = distancePot + c.getPosition().getX() - this.getPosition().getPosition().getX() ;  //différence en X
-		}
-		if (c.getPosition().getY()<this.getPosition().getPosition().getY()) { //si y cible < y départ
-			distancePot = distancePot + this.getPosition().getPosition().getY() - c.getPosition().getY();
-		}
-		else { //si y cible > y départ
-			distancePot = distancePot + c.getPosition().getY() - this.getPosition().getPosition().getY() ;
-		} /* distance = distance x + distance y */
-		if (distancePot > this.getMouvement()) { //si les points de mouvement du perso sont inférieur à la distance entre les deux cases
-			System.out.println(this.nom + " ne peux pas acceder � cette case"); //rien ne se passe
+		if(!this.ActionDisponible().contains(c)) { // si la case cible ne fait pas partie des déplacement possible
+		
+			System.out.println(this.nom + " ne peux pas acceder à cette case");
 		}
 		else {
 			if (c.getOccupant() != null) { //si la case cible à un occupant
