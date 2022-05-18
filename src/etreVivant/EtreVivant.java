@@ -133,7 +133,7 @@ public void prendre(Armure d) { //prise d'une armure
 		}
 		if(d.getProprietaire() != null) { //si l'armure a déjà un propriétaire
 			System.out.println(d.getProprietaire().getNom() + " lache "+ d.getNom());
-			d.getProprietaire().lacher();//le propriétaire lache l'armure ciblé
+			d.getProprietaire().perdreArmure();//le propriétaire lache l'armure ciblé
 		}
 		this.monArmure = d;//prise de l'armure
 		d.setProprietaire(this);//l'armure prend pour propriétaire le perso
