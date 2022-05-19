@@ -22,11 +22,17 @@ public class TestGUI extends JComponent implements Accessible {
         JFrame f = new JFrame();
 
         JPanel panel1 = new JPanel(); // Le plateau de jeu
+        JTextField tour = new JTextField();
+        tour.setMaximumSize(new Dimension(400,100));
+        tour.setText("Tour : Orc");
+        tour.setFont(new Font("Arial",Font.BOLD, 30));
+        tour.setHorizontalAlignment(JTextField.CENTER);
+        tour.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         InfoCaracter infos = new InfoCaracter();
         JPanel panel2 = infos.setPanel(); // La bar des actions
 
-        panel1.add(new Plateau(bataille,infos));
+        panel1.add(new Plateau(bataille,infos,tour));
 
         f.setSize(1100, 900);
         f.setTitle("Plateau");
@@ -37,7 +43,12 @@ public class TestGUI extends JComponent implements Accessible {
         f.setResizable(false);
 
         Box box = Box.createHorizontalBox();
-        box.add(panel1);
+        Box boxplateau = Box.createVerticalBox();
+
+        boxplateau.add(tour);
+        boxplateau.add(panel1);
+
+        box.add(boxplateau);
         box.add(panel2);
 
         f.add(box, BorderLayout.CENTER);
@@ -47,10 +58,10 @@ public class TestGUI extends JComponent implements Accessible {
 
     public static void main(String[] args) throws IOException {
 
-
         Bataille p = new Bataille();
         Path chemin = Paths.get("sauvegarde.txt");
         p.reprise(chemin);
+        p.passerletour();
 
         TestGUI test1 = new TestGUI(p);
     }

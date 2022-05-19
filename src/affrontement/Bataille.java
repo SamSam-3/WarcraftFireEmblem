@@ -267,7 +267,7 @@ public class Bataille {
 		List<Case> b = new ArrayList<>();
 		for(int i=0;i<10;i++) { //creation du plateau
 			for(int j=0;j<10;j++) {
-				Coordonne c = new Coordonne(i, j);
+				Coordonne c = new Coordonne(j, i);
 				Case a = new Case(c, this);  //creation d'une case
 				this.AjCase(a); //ajout au plateau
 			}
