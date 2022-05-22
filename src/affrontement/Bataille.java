@@ -125,12 +125,12 @@ public class Bataille {
 		if(Files.exists(chemin)){ //S'il le fichier existe
 			System.out.println("le fichier existe d�j�");
 			String a =""+this.getTour(); // String de données du tour
-			a = a +"\nCamps Homme : "; // Données du camp Homme
+			a = a +"\nCamps Homme : \n"; // Données du camp Homme
 			a = a + Integer.toString(this.donnerNombreHommes())+"\n"; // Nombre d'hommes restant
 			for (EtreVivant etreVivant :this.getCampHomme().getCompagnons()) { // Pour tout les Hommes
 					a = a + etreVivant.description()+"\n"; // Recupere leurs infos (pv, nom, etc...)
 				}
-			a = a +"Camps Orc : "; //Données du camp Orc
+			a = a +"Camps Orc : \n"; //Données du camp Orc
 			a = a + Integer.toString(this.donnerNombreOrc())+"\n" ; // Nombre d'orcs restant
 			for (EtreVivant etreVivant :this.getCampOrc().getCompagnons()) { // Pour tout les Orcs
 					a = a + etreVivant.description()+"\n"; // Recupere leurs infos (pv, nom, etc...)
@@ -156,10 +156,10 @@ public class Bataille {
 			this.initialisation(); // Initialise le plateau avec les données
 
 			String TourActuel = f.get(0); // Tour en cours
-			int nombreHomme = Integer.parseInt(f.get(1).substring(f.get(1).length() - 1)); // Nombre d'hommes restants
+			int nombreHomme = Integer.parseInt(f.get(2)); // Nombre d'hommes restants
 			System.out.print("Il y a "+nombreHomme+" hommes dans ce fichier de sauvegarde");
 
-			int j = 2;
+			int j = 3;
 			for(int i = 0;i<nombreHomme;i++) { // Pour le nombre d'hommes restants
 				// Récupère les coordonées X et Y
 				int X = Integer.parseInt(f.get(j).substring(1,2));
@@ -196,7 +196,7 @@ public class Bataille {
 				j++;
 			}
 			
-			j = j++;
+			j = j+ 2;
 			System.out.println(f.get(j)); 
 			int nombreOrc = Integer.parseInt(f.get(j).substring(f.get(j).length() - 1)); //nombre d'orc dans le fichier de sauvegarde
 			System.out.print("Il y a "+nombreOrc+" orcs dans ce fichier de sauvegarde");
