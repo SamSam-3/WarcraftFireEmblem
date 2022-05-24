@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <help_text/>
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1420</x>
+      <y>295</y>
+      <w>170</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Camp
+Package::affrontement
+
+--
+compagnons : List&lt;EtreVivant&gt;
+
+--
+void ajouterEtreVivant(EtreVivant)
+void supprimerEtreVivant(EtreVivant)
+int nbCompagnons()
+EtreVivant selectionner(int )
+String afficherCamp()
+List&lt;EtreVivant&gt; getCompagnons()
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1150</x>
+      <y>290</y>
+      <w>180</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>Bataille
+Package::affrontement
+
+--
+CampHomme : camp
+CampOrc : camp
+PersoActif : EtreVivant
+Victoire : String 
+ArsenalArme  : StockArmes
+tourJouee : booelan
+ArsenalArmure : StockArmure
+
+--
+void ajouter(Homme, Coordonne)
+void ajouter(Orc, Coordonne)
+void eliminer(EtreVivant)
+EtreVivant selectionner(TypeEtreVivant, int)
+string AfficherCamp(TypeEtreVivant)
+int donnerNombreHomme()
+int donnerNombreOrc()
+void sauvegarder()
+void reprise(Path)
+void passerletour()
+List&lt;Case&gt; initialisation()
+Case selectionnerCase()
+String AfficherCase(Coordonne)
+string etatDetail()
+void remplissageInit()
+string affichagePlateau()
+void AnnoncerTour()
+void GenererArme(int)
+void GenererArmure(int)
+void etat()
+
+Getter et Setter de tout les attributs
+
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1195</x>
+      <y>155</y>
+      <w>95</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>ControleurPartie
+Package::controleur
+
+--
+bataille : bataille
+--
+main()
+void Start()
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1240</x>
+      <y>220</y>
+      <w>15</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>875</x>
+      <y>290</y>
+      <w>180</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>StocksArmes
+Package::équipement
+
+--
+epees : List&lt;Epee&gt;
+arcs : List&lt;Arc&gt;
+armures : List&lt;Armure&gt;
+armes : List&lt;Arme&gt;
+
+--
+void ajouterArme(Arc arc)
+void ajouterArmure(Armure d)
+String afficherArmes()
+Arme selectionner(int numero)
+Armure selectionnerA(int numero)
+void supprimerArme(Arme arme)
+int donnerNombreArme()
+int donnerNombreArmure()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>525</x>
+      <y>20</y>
+      <w>180</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>Epee
+Package::équipement
+
+--
+nomEpee : name
+super()
+
+--
+Epee( String n,int d)
+String getNom()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>315</x>
+      <y>345</y>
+      <w>180</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>Armure
+Package::équipement
+
+--
+PA : int
+nom : String
+Propriétaire : EtreVivant
+
+--
+Armure(String n,int pa)
+int prendreCoup(int dg)
+void lacher()
+int getPA()
+void setPA(int pA)
+String getNom()
+void setNom(String nom)
+EtreVivant getProprietaire()
+void setProprietaire(EtreVivant proprietaire)
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>640</x>
+      <y>200</y>
+      <w>180</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>Arme
+Package::équipement
+
+--
+DégatsArme : degat
+NatureArme : nature
+NomArme : nom
+
+--
+int getDegat()
+void setDegat(int degat)
+String getNature()
+EtreVivant getProprietaire()
+void setProprietaire(EtreVivant proprietaire)
+boolean estPris()
+String getNom()
+void setNom(String n)
+void lacher()
+void attaquer(EtreVivant d)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>860</x>
+      <y>55</y>
+      <w>180</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>Arc
+Package::équipement
+
+--
+nombre de Flèche : nombreFlèche
+nomArc : name
+super()
+
+--
+Arc(String n,int d)
+String getNom()
+int nombreFleche()
+void attaquer(EtreVivant d)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1385</x>
+      <y>520</y>
+      <w>180</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>EtreVivant
+Package::etreVivant
+
+--
+nomEtreVivant : nom
+vieEtreVivant : vie
+position : Case
+mouvement : int
+disponible : boolean
+bataille : Bataille
+Initial : String
+monArmure : Armure
+vieMax : int
+
+--
+EtreVivant(String n,int v)
+void mourir()
+void lacher()
+void perdreArmure()
+void PrendreCoup(int dg)
+void combat(EtreVivant h)
+void prendre(Arme d)
+void prendre(Armure d)
+void obtenir()
+void obtenirArme()
+void obtenirArmure()
+void sedeplacer(Case c)
+void sedeplacer(Coordonne e)
+void attaquer(EtreVivant e)
+List&lt;Case&gt; ActionDisponible()
+String AfficherDisp()
+String description()
+boolean getDisponible()
+void setDisponible(boolean disponible)
+int getVie()
+void setVie(int vie)
+int getMouvement()
+void setMouvement(int m)
+String getNom()
+void setNom(String nom)
+Case getPosition()
+void setPosition(Case position)
+Arme getMaPossession()
+void setMaPossession(Arme maPossession)
+String getInitial()
+void setInitial(String g)
+void setCamp(String ini)
+Armure getMonArmure()
+void setMonArmure(Armure monArmure)
+int getVieMax()
+void setVieMax(int vieMax)
+Bataille getBataille()
+void setBataille(Bataille bataille)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1090</x>
+      <y>730</y>
+      <w>180</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>Homme
+Package::etreVivant
+
+--
+super()
+
+--
+Homme(String n, int v)
+void attaquer(EtreVivant v)
+void rejointBataille(Bataille b,Coordonne e)
+String parler(String string)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1085</x>
+      <y>575</y>
+      <w>180</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>Orc
+Package::etreVivant
+
+--
+super()
+
+--
+Orc(String n, int v)
+void attaquer(EtreVivant v)
+void rejointBataille(Bataille b,Coordonne e)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1100</x>
+      <y>895</y>
+      <w>180</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>TypeEtreVivant
+Package::etreVivant
+
+--
+enumeration : TypeEtreVivant</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>465</y>
+      <w>180</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>Case
+Package::plateau
+
+--
+position : Coordonne
+terrain : Terrain
+Occupant : EtreVivant
+
+--
+Case(Coordonne a,Bataille q)
+Terrain getTerrain()
+void setTerrain(Terrain terrain)
+Coordonne getPosition()
+void setPosition(Coordonne position)
+EtreVivant getOccupant()
+void setOccupant(EtreVivant occupant)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>550</x>
+      <y>665</y>
+      <w>180</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>Coordonne
+Package::plateau
+
+--
+x : int
+y : int
+
+--
+Coordonne(int a, int b)
+int getX()
+void setX(int x)
+int getY()
+void setY(int y)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>815</x>
+      <y>310</y>
+      <w>70</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>325</y>
+      <w>110</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1325</x>
+      <y>325</y>
+      <w>110</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>745</x>
+      <y>480</y>
+      <w>415</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>810.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1550</x>
+      <y>400</y>
+      <w>15</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1275</x>
+      <y>870</y>
+      <w>115</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;100.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>130</y>
+      <w>100</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>625</x>
+      <y>90</y>
+      <w>60</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;220.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>355</y>
+      <w>395</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;20.0;770.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>605</y>
+      <w>15</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1265</x>
+      <y>745</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1260</x>
+      <y>655</y>
+      <w>130</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
