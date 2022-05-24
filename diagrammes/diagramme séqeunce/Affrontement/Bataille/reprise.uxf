@@ -51,7 +51,7 @@
       <x>0</x>
       <y>130</y>
       <w>2580</w>
-      <h>1570</h>
+      <h>3120</h>
     </coordinates>
     <panel_attributes>if Files.exists(Path G)</panel_attributes>
     <additional_attributes/>
@@ -59,13 +59,13 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>310</x>
+      <x>330</x>
       <y>100</y>
-      <w>50</w>
-      <h>830</h>
+      <w>30</w>
+      <h>800</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>30.0;10.0;10.0;810.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;780.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -84,10 +84,10 @@
       <x>740</x>
       <y>100</y>
       <w>30</w>
-      <h>1440</h>
+      <h>3040</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;1420.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;3020.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -106,10 +106,10 @@
       <x>1020</x>
       <y>100</y>
       <w>30</w>
-      <h>1500</h>
+      <h>3190</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;1480.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;3170.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -266,10 +266,10 @@ i =0</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>550</x>
-      <y>480</y>
+      <x>570</x>
+      <y>1910</y>
       <w>1890</w>
-      <h>1220</h>
+      <h>1360</h>
     </coordinates>
     <panel_attributes>for(int i = 0;i&lt;nombreHomme;i++) </panel_attributes>
     <additional_attributes/>
@@ -362,10 +362,10 @@ Coordonne C = new Coordonne(X,Y)</panel_attributes>
       <x>1220</x>
       <y>630</y>
       <w>30</w>
-      <h>930</h>
+      <h>990</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;910.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;970.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -396,10 +396,10 @@ infos = f.get(j).split(",");</panel_attributes>
       <x>1450</x>
       <y>690</y>
       <w>30</w>
-      <h>880</h>
+      <h>930</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;860.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;910.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -476,7 +476,7 @@ rejointBataille(this,C)</panel_attributes>
       <x>610</x>
       <y>880</y>
       <w>1930</w>
-      <h>800</h>
+      <h>720</h>
     </coordinates>
     <panel_attributes>if (f.get(j+1).substring(0,1).equals(*)){</panel_attributes>
     <additional_attributes/>
@@ -532,10 +532,10 @@ infosArme = f.get(j).split(",");</panel_attributes>
       <x>1650</x>
       <y>940</y>
       <w>30</w>
-      <h>880</h>
+      <h>680</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;860.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;660.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -636,7 +636,7 @@ prendre(E)</panel_attributes>
       <w>1470</w>
       <h>110</h>
     </coordinates>
-    <panel_attributes>case epee</panel_attributes>
+    <panel_attributes>case arc</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -684,5 +684,497 @@ Arc(nom,nomArme.substring(4,5))</panel_attributes>
     <panel_attributes>lt=&lt;-
 prendre(A)</panel_attributes>
     <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>570</x>
+      <y>500</y>
+      <w>1890</w>
+      <h>1200</h>
+    </coordinates>
+    <panel_attributes>for(int i = 0;i&lt;nombreHomme;i++) </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>1940</y>
+      <w>310</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>580</x>
+      <y>1970</y>
+      <w>160</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>nb = f.get(j)
+i =0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>1970</y>
+      <w>310</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;&gt;
+</panel_attributes>
+    <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>620</x>
+      <y>1620</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>j++</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>740</x>
+      <y>1620</y>
+      <w>20</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>600</x>
+      <y>2030</y>
+      <w>1890</w>
+      <h>1200</h>
+    </coordinates>
+    <panel_attributes>for(int i = 0;i&lt;nombreOrc;i++) </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>2070</y>
+      <w>310</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Integer.parseInt(f.get(j).substring(1,2));</panel_attributes>
+    <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>2100</y>
+      <w>310</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;&gt;
+X de l'orc</panel_attributes>
+    <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>2130</y>
+      <w>310</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Integer.parseInt(f.get(j).substring(3,4));</panel_attributes>
+    <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>2160</y>
+      <w>310</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;&gt;
+Y de l'orc</panel_attributes>
+    <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>2200</y>
+      <w>390</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Coordonne C = new Coordonne(X,Y)</panel_attributes>
+    <additional_attributes>370.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1120</x>
+      <y>2200</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_Coordonne : C_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1220</x>
+      <y>2220</y>
+      <w>30</w>
+      <h>990</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;970.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1030</x>
+      <y>2270</y>
+      <w>350</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+infos = f.get(j).split(",");</panel_attributes>
+    <additional_attributes>330.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1360</x>
+      <y>2270</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_String[] : infos_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1460</x>
+      <y>2290</y>
+      <w>30</w>
+      <h>930</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;910.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1460</x>
+      <y>2320</y>
+      <w>20</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1290</x>
+      <y>2330</y>
+      <w>160</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>nom  = info[1]
+vie = info[2]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1460</x>
+      <y>2380</y>
+      <w>270</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Orc O = new Orc(nom,vie)</panel_attributes>
+    <additional_attributes>250.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1710</x>
+      <y>2380</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_Orc : O_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>2410</y>
+      <w>1090</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+rejointBataille(this,C)</panel_attributes>
+    <additional_attributes>10.0;20.0;1070.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1800</x>
+      <y>2400</y>
+      <w>30</w>
+      <h>890</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;870.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>620</x>
+      <y>2450</y>
+      <w>1930</w>
+      <h>720</h>
+    </coordinates>
+    <panel_attributes>if (f.get(j+1).substring(0,1).equals(*)){</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>640</x>
+      <y>2490</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>j++</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>740</x>
+      <y>2490</y>
+      <w>20</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1020</x>
+      <y>2560</y>
+      <w>550</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+infosArme = f.get(j).split(",");</panel_attributes>
+    <additional_attributes>530.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1550</x>
+      <y>2560</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_String[] : infosArme_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1490</x>
+      <y>2610</y>
+      <w>150</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>nom  = info[1]
+catégorie = info[0]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1650</x>
+      <y>2580</y>
+      <w>30</w>
+      <h>610</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;590.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1650</x>
+      <y>2610</y>
+      <w>20</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>1510</x>
+      <y>2680</y>
+      <w>1470</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>switch(catégorie)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>1510</x>
+      <y>2710</y>
+      <w>1470</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>case epee</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>1510</x>
+      <y>2820</y>
+      <w>1470</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>case arc</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1650</x>
+      <y>2720</y>
+      <w>280</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Epee(nom,nomArme.substring(4,5))</panel_attributes>
+    <additional_attributes>260.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1650</x>
+      <y>2840</y>
+      <w>280</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Arc(nom,nomArme.substring(4,5))</panel_attributes>
+    <additional_attributes>260.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1910</x>
+      <y>2720</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_Epee : E_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1910</x>
+      <y>2840</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_Arc : A_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2010</x>
+      <y>2740</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2010</x>
+      <y>2860</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1800</x>
+      <y>2750</y>
+      <w>240</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+prendre(E)</panel_attributes>
+    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1800</x>
+      <y>2870</y>
+      <w>240</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+prendre(A)</panel_attributes>
+    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>340</y>
+      <w>300</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>280.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
