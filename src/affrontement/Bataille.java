@@ -196,7 +196,7 @@ public class Bataille {
 				j++;
 			}
 			
-			j = j+ 2;
+			j = j+ 1;
 			System.out.println(f.get(j)); 
 			int nombreOrc = Integer.parseInt(f.get(j)); //nombre d'orc dans le fichier de sauvegarde
 			System.out.print("Il y a "+nombreOrc+" orcs dans ce fichier de sauvegarde");
