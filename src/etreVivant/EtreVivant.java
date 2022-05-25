@@ -260,9 +260,9 @@ public void obtenirArmure() { //obtention d'une armure
 		if (this.maPossession != null) {
 			a = a + "\n*"+this.maPossession.getClass().getSimpleName()+","+this.maPossession.getNom() +" | Dégats : " + this.maPossession.getDegat();//Sortie caratère des infos de l'arme du perso pour la sauveragde
 		} 
-		if (this.monArmure != null) {
-			a = a + "\n+"+this.monArmure.getClass().getSimpleName()+","+this.monArmure.getPA(); //Sortie caratère des infos de l'armure du perso pour la sauveragde
-		}
+		//if (this.monArmure != null) { pas implémenter dans la reprise
+			//a = a + "\n+"+this.monArmure.getClass().getSimpleName()+","+this.monArmure.getPA(); //Sortie caratère des infos de l'armure du perso pour la sauveragde
+		//}
 		return a;
 		
 	}
