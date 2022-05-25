@@ -18,6 +18,8 @@ public class InfoCaracter {
     public JTextField Cname = new JTextField("            "); // Caracter's name
     public JTextField pv = new JTextField("            ");
     public JTextField stamina = new JTextField("            ");
+
+    public JTextArea equipment = new JTextArea("            ");
     public InfoCaracter(){
 
         Dimension dim = new Dimension(150,50);
@@ -34,11 +36,12 @@ public class InfoCaracter {
         this.frame.setVisible(true);
 
         box = Box.createVerticalBox();
-        box.setAlignmentY(Component.CENTER_ALIGNMENT);
+        //box.setAlignmentY(Component.CENTER_ALIGNMENT);
         
         Cname.setSize(dim);
         pv.setSize(dim);
         stamina.setSize(dim);
+        equipment.setSize(300,200);
 
         Cname.setFont(new Font("Arial",Font.BOLD, 20));
         Cname.setHorizontalAlignment(JTextField.CENTER);
@@ -49,11 +52,16 @@ public class InfoCaracter {
         stamina.setFont(new Font("Arial",Font.BOLD, 20));
         stamina.setHorizontalAlignment(JTextField.CENTER);
 
+        equipment.setFont(new Font("Arial", Font.BOLD, 12));
+
         box.add(Cname);
         box.add(pv);
         box.add(stamina);
 
         box.add(annuler);
+
+        box.add(equipment);
+
 
         this.frame.add(box, BorderLayout.NORTH);
 
@@ -66,8 +74,18 @@ public class InfoCaracter {
         try {
             Cname.setText(combattant.getNom());
             pv.setText(String.valueOf(combattant.getVie()));
-            stamina.setText(String.valueOf(combattant.getMouvement()));
+            stamina.setText(String.valueOf(combattant.getMouvement()-1));
+            equipment.setText("");
             annuler.setVisible(true);
+
+            if(combattant.getMaPossession() != null){
+                String phrase = combattant.getMaPossession().getNom()+" : "+combattant.getMaPossession().getDegat()+" pts de dégats";
+
+                if(combattant.getMonArmure() != null){
+                    phrase += "\n"+combattant.getMonArmure().getNom()+" : "+combattant.getMonArmure().getPA()+" pt d'armures";
+                }
+                equipment.setText(phrase);
+            }
 
         } catch (NullPointerException neo){
             Cname.setText("            ");

@@ -95,34 +95,22 @@ public class Plateau extends Canvas implements MouseListener{
             if (0 <= x & x <= 9 & 0 <= y & y <= 9) { //Si x et y sont bien dans le plateau de jeu
                 Case selectedCase = this.bataille.getPt().get(y * NBCASE + x); //récupère les infos de la case
                 try {
-                    occupant.sedeplacer(new Coordonne(x, y));
+
+                    if(occupant.getPosition().getPosition() != selectedCase.getPosition() && (selectedCase.getOccupant() == null || occupant.getClass() != selectedCase.getOccupant().getClass())){
+                        occupant.sedeplacer(new Coordonne(x, y));
+
+                        bataille.passerletour();
+                        bataille.setTourJouee(false);
+
+                        occupant = null;
+                        this.repaint();
+                    }
+
                 } catch (NullPointerException neo){
                     neo.printStackTrace();
                 }
-                    /*
-                if(selectedCase.getOccupant() != null){ // Si la case appartient à un être vivant
-                    // Afficher actions
+            }
 
-                    if(selectedCase.getOccupant() instanceof  Homme){
-                        if(occupant instanceof Orc){
-                            occupant.attaquer(selectedCase.getOccupant()); //Attaque l'occupant de la case
-                            System.out.print(occupant.getNom());
-                        }
-                    } else {
-                        if(occupant instanceof Homme){
-                            occupant.attaquer(selectedCase.getOccupant()); //Attaque l'occupant de la case
-                            System.out.print(occupant.getNom());
-                        }
-                    }
-                } else {
-                    System.out.println("Cette case est vide");
-                    occupant.sedeplacer(new Coordonne(x,y));
-                }
-            }
-            */
-                occupant = null;
-                this.repaint();
-            }
             }
 
             if (e.getButton() == 1) {
@@ -133,22 +121,6 @@ public class Plateau extends Canvas implements MouseListener{
                         occupant = selectedCase.getOccupant();
                         infos.updateCaracter(occupant);
 
-                    /*if(occupant instanceof Homme){
-                        if(Objects.equals(bataille.getTour(), "Homme")){
-                            System.out.print("Homme "+ occupant.getNom());
-                        }
-                        else {
-                            System.out.println("Ce n'est pas votre tour ");
-                        }
-
-                    } else {
-                        if(Objects.equals(bataille.getTour(), "Orc")){
-                            System.out.print("Orc "+ occupant.getNom()+" VS ");
-                        }
-                        else {
-                            System.out.println("Ce n'est pas votre tour ");
-                        }
-                    }*/
                     } else {
                         System.out.println("Cette case n'appartient à personne");
                         occupant = null;
