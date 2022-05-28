@@ -406,6 +406,18 @@ public class Bataille {
 		Coordonne hco2 = new Coordonne(1,2);
 		ChO2.rejointBataille(this, hco2);
 		
+		Orc RoiO = new Orc("Roi Orc", 200);
+        RoiO.setInitial("KingO");
+        RoiO.setMouvement(2);
+        Coordonne r1 = new Coordonne(1,5);
+        RoiO.rejointBataille(this, r1);
+
+        Homme RoiH = new Homme("Roi Homme", 200);
+        RoiH.setInitial("KingH");
+        RoiH.setMouvement(2);
+        Coordonne r2 = new Coordonne(9,5);
+        RoiH.rejointBataille(this, r2);
+		
 		
 	}
 	public String afficherPlateau() {  // affichage textuel du plateau
